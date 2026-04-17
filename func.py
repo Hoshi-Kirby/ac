@@ -10,7 +10,8 @@ def imageLoad(size,imageText,alpha):
     image = pygame.image.load(imageText).convert_alpha()
     image = pygame.transform.scale_by(image,size)
     image.set_alpha(alpha)
-    return image
+    width, height = image.get_size()
+    return image,width,height
 def buttonImageLoad(size,imageText,alpha,x,y):
     image = pygame.image.load(imageText).convert_alpha()
     image = pygame.transform.scale_by(image,size)
