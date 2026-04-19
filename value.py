@@ -31,11 +31,23 @@ playerPauseTime=0
 playerPause=0
 playerIsLeft=0
 
+jumpTime=0
+
 dashTimeA=0
 dashTimeD=0
 dashLeftTime=0
 dashRightTime=0
 dashCoolTime=0
+
+atackTime=0
+slash=False
+slashTime=0
+throwTime=0
+fallTime=0
+swordX=0
+swordY=0
+swordIsLeft=False
+
 
 def reset():
     value.step=1
@@ -55,3 +67,7 @@ def reset():
     value.dashLeftTime=0
     value.dashRightTime=0
     value.dashCoolTime=0
+
+    value.atackTime=0
+    value.slash=False
+    value.slashTime=0

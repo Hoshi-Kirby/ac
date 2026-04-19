@@ -13,25 +13,46 @@ def event1(key):
     if key==K_SPACE:
         if stage.isHit(value.playerX,value.playerY,value.playerWidth,value.playerHeight):
             value.playerVY=-2
+            value.jumpTime=0
         if stage.isHit(value.playerX+1,value.playerY,value.playerWidth,value.playerHeight) and value.playerIsLeft==0:
             value.playerVY=-2
+            value.jumpTime=0
         if stage.isHit(value.playerX-1,value.playerY,value.playerWidth,value.playerHeight) and value.playerIsLeft==3:
             value.playerVY=-2
+            value.jumpTime=0
     if key==K_r:
         value.step=0
     if key==K_a:
         value.playerIsLeft=3
     if key==K_d:
         value.playerIsLeft=0
+    if key==K_RETURN:
+        if value.slashTime==0:
+            value.atackTime=6
+            value.slashTime=12
+        else:
+            if value.slash:
+                value.atackTime=6
+                value.slashTime=12
+                value.slash=False
+            else:
+                value.atackTime=0
+                value.slash=True
+    if key==K_RSHIFT:
+        if value.throwTime==0 and value.fallTime==0:
+            value.throwTime=12
+            value.swordX=value.playerX
+            value.swordY=value.playerY
+            value.swordIsLeft=value.playerIsLeft==3
     if value.dashCoolTime==0:
         if value.dashTimeA>0:
             if key==K_a:
                 value.dashLeftTime=6
-                value.dashCoolTime=40
+                value.dashCoolTime=20
         if value.dashTimeD>0:
             if key==K_d:
                 value.dashRightTime=6
-                value.dashCoolTime=40
+                value.dashCoolTime=20
         if key==K_a:
             value.dashTimeA=15
             value.dashTimeD=0
@@ -51,6 +72,15 @@ def pressed1():
         for i in range(2):
             if value.playerX<value.maxWidth and not stage.isHit(value.playerX+1,value.playerY-1,value.playerWidth,value.playerHeight):
                 value.playerX+=1
+
+    if pressed_keys[K_SPACE]:
+        if 0<=value.jumpTime<10:
+            value.jumpTime+=1
+    else:
+        if 0<=value.jumpTime<10:
+            value.jumpTime+=1
+        if value.jumpTime==6:
+            value.playerVY=-0.8
 
     if pressed_keys[K_d] ^ pressed_keys[K_a]:
         value.playerPauseTime+=1
