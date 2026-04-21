@@ -14,11 +14,15 @@ def event1(key):
         if stage.isHit(value.playerX,value.playerY,value.playerWidth,value.playerHeight):
             value.playerVY=-2
             value.jumpTime=0
-        if stage.isHit(value.playerX+1,value.playerY,value.playerWidth,value.playerHeight) and value.playerIsLeft==0:
+        elif stage.isHit(value.playerX+1,value.playerY,value.playerWidth,value.playerHeight) and value.playerIsLeft==0:
             value.playerVY=-2
+            value.dashLeftTime=4
+            value.playerIsLeft=3-value.playerIsLeft
             value.jumpTime=0
-        if stage.isHit(value.playerX-1,value.playerY,value.playerWidth,value.playerHeight) and value.playerIsLeft==3:
+        elif stage.isHit(value.playerX-1,value.playerY,value.playerWidth,value.playerHeight) and value.playerIsLeft==3:
             value.playerVY=-2
+            value.dashRightTime=4
+            value.playerIsLeft=3-value.playerIsLeft
             value.jumpTime=0
     if key==K_r:
         value.step=0
@@ -27,6 +31,7 @@ def event1(key):
     if key==K_d:
         value.playerIsLeft=0
     if key==K_RETURN:
+        value.player2A[119]=True
         if value.slashTime==0:
             value.atackTime=6
             value.slashTime=12
@@ -40,6 +45,7 @@ def event1(key):
                 value.slash=True
     if key==K_RSHIFT:
         if value.throwTime==0 and value.fallTime==0:
+            value.player2C[119]=True
             value.throwTime=12
             value.swordX=value.playerX
             value.swordY=value.playerY
@@ -82,6 +88,14 @@ def pressed1():
         if value.jumpTime==6:
             value.playerVY=-0.8
 
+    if pressed_keys[K_LSHIFT]:
+        if value.pressShiftTime<118:
+            value.pressShiftTime+=1
+    else:
+        if value.pressShiftTime>0:
+            value.pressShiftTime-=2
+
+
     if pressed_keys[K_d] ^ pressed_keys[K_a]:
         value.playerPauseTime+=1
         if value.playerPauseTime>20:
@@ -95,23 +109,25 @@ def pressed1():
         if value.playerPauseTime==16:
             value.playerPause=0
         
-        if pressed_keys[K_d] and not stage.isHit(value.playerX+1,value.playerY-1,value.playerWidth,value.playerHeight):
-            if value.playerX<value.maxWidth-math.ceil(value.playerWidth/value.size)-2:
-                value.playerX+=1
-            else:
-                value.step=0
-            if value.playerX-value.scroll>=value.width/2 and value.scroll<value.maxWidth-value.width:
-                value.scroll+=1
-            if value.playerX-value.scroll>value.width/2 and value.scroll<value.maxWidth-value.width:
+        if pressed_keys[K_d]:
+            if not stage.isHit(value.playerX+1,value.playerY-1,value.playerWidth,value.playerHeight):
+                if value.playerX<value.maxWidth-math.ceil(value.playerWidth/value.size)-2:
+                    value.playerX+=1
+                else:
+                    value.step=0
+                if value.playerX-value.scroll>=value.width/2 and value.scroll<value.maxWidth-value.width:
                     value.scroll+=1
+                if value.playerX-value.scroll>value.width/2 and value.scroll<value.maxWidth-value.width:
+                        value.scroll+=1
             value.playerIsLeft=0
-        if pressed_keys[K_a] and not stage.isHit(value.playerX-1,value.playerY-1,value.playerWidth,value.playerHeight):
-            if value.playerX>1:
-                value.playerX-=1
-            if value.playerX-value.scroll<=value.width/2 and value.scroll>0:
-                value.scroll-=1
-                if value.playerX-value.scroll<value.width/2 and value.scroll>0:
+        if pressed_keys[K_a]:
+            if not stage.isHit(value.playerX-1,value.playerY-1,value.playerWidth,value.playerHeight):
+                if value.playerX>1:
+                    value.playerX-=1
+                if value.playerX-value.scroll<=value.width/2 and value.scroll>0:
                     value.scroll-=1
+                    if value.playerX-value.scroll<value.width/2 and value.scroll>0:
+                        value.scroll-=1
             value.playerIsLeft=3
     else:
         value.playerPause=0

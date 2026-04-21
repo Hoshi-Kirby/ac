@@ -48,6 +48,29 @@ swordX=0
 swordY=0
 swordIsLeft=False
 
+player2X=[6]*120
+player2Y=[43]*120
+player2Pause=[0]*120
+player2IsLeft=[0]*120
+player2AtackTime=[0]*120
+player2ThrowTime=[0]*120
+player2A=[False]*120
+player2C=[False]*120
+pressShiftTime=0
+
+arrows=[]
+class Arrow:
+    def __init__(self, x, y, vx, vy):
+        self.x = x
+        self.y = y
+        self.vx = vx
+        self.vy = vy
+        self.alive = True
+
+    def update(self):
+        self.x +=self.vx
+        self.y +=self.vy
+        
 
 def reset():
     value.step=1
