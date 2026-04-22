@@ -46,6 +46,8 @@ throwTime=0
 fallTime=0
 swordX=0
 swordY=0
+swordVX=0
+swordVY=0
 swordIsLeft=False
 
 player2X=[6]*120
@@ -57,6 +59,11 @@ player2ThrowTime=[0]*120
 player2A=[False]*120
 player2C=[False]*120
 pressShiftTime=0
+
+isW=False
+isS=False
+is2W=[False]*120
+is2S=[False]*120
 
 arrows=[]
 class Arrow:

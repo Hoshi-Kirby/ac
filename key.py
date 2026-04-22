@@ -31,24 +31,35 @@ def event1(key):
     if key==K_d:
         value.playerIsLeft=0
     if key==K_RETURN:
-        value.player2A[119]=True
-        if value.slashTime==0:
-            value.atackTime=6
-            value.slashTime=12
-        else:
-            if value.slash:
+        if value.throwTime==0 and value.fallTime==0:
+            value.player2A[119]=True
+            if value.slashTime==0:
                 value.atackTime=6
                 value.slashTime=12
-                value.slash=False
             else:
-                value.atackTime=0
-                value.slash=True
+                if value.slash:
+                    value.atackTime=6
+                    value.slashTime=12
+                    value.slash=False
+                else:
+                    value.atackTime=0
+                    value.slash=True
     if key==K_RSHIFT:
         if value.throwTime==0 and value.fallTime==0:
             value.player2C[119]=True
             value.throwTime=12
             value.swordX=value.playerX
             value.swordY=value.playerY
+            if value.isW ^ value.isS:
+                if value.isW:
+                    value.swordVX=0
+                    value.swordVY=-2
+                else:
+                    value.swordVX=0
+                    value.swordVY=2
+            else:
+                value.swordVX=2
+                value.swordVY=0
             value.swordIsLeft=value.playerIsLeft==3
     if value.dashCoolTime==0:
         if value.dashTimeA>0:
@@ -138,3 +149,15 @@ def pressed1():
             value.dashTimeD-=1
         if value.dashCoolTime>0:
             value.dashCoolTime-=1
+    
+    if pressed_keys[K_w]:
+        value.isW=True
+    else:
+        value.isW=False
+
+    if pressed_keys[K_s]:
+        value.isS=True
+    else:
+        value.isS=False
+
+

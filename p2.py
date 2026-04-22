@@ -49,13 +49,16 @@ def memo():
         value.player2ThrowTime[i]=value.player2ThrowTime[i+1]
         value.player2A[i]=value.player2A[i+1]
         value.player2C[i]=value.player2C[i+1]
+        value.is2W[i]=value.is2W[i+1]
+        value.is2S[i]=value.is2S[i+1]
     value.player2X[119]=value.playerX
     value.player2Y[119]=value.playerY
     value.player2Pause[119]=value.playerPause
     value.player2IsLeft[119]=value.playerIsLeft
     value.player2AtackTime[119]=value.atackTime
     value.player2ThrowTime[119]=value.throwTime
-
+    value.is2W[119]=value.isW
+    value.is2S[119]=value.isS
 
 def draw(i,a,t,x,y):
     if a==0 and t==0:

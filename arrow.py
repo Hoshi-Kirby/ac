@@ -20,14 +20,34 @@ def add0():
 
 def addA(p2t):
     if value.player2IsLeft[p2t]==0:
-        value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],2,0))
+        if value.is2W[p2t]:
+            value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],0,-4))
+        elif value.is2S[p2t]:
+            value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],0,1))
+        else:
+            value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],3,-0.2))
     else:
-        value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],-2,0))
+        if value.is2W[p2t]:
+            value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],0,-4))
+        elif value.is2S[p2t]:
+            value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],0,2))
+        else:
+            value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],-3,-0.2))
 def addC(p2t):
     if value.player2IsLeft[p2t]==0:
-        value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],2,-1))
+        if value.is2W[p2t]:
+            value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],0.2,-3))
+        elif value.is2S[p2t]:
+            value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],0.2,1))
+        else:
+            value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],2,-1))
     else:
-        value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],-2,-1))
+        if value.is2W[p2t]:
+            value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],-0.2,-3))
+        elif value.is2S[p2t]:
+            value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],-0.2,1))
+        else:
+            value.arrows.append(value.Arrow(value.player2X[p2t],value.player2Y[p2t],-2,-1))
 
 def addCheck(p2t):
     if value.player2A[p2t]:

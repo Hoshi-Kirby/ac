@@ -17,7 +17,7 @@ while True:
     if value.step==0:
         value.reset()
     if value.step==1:
-        stage.set(3)
+        stage.set(5)
     while value.step==1:
         value.screen.fill((0,0,0))
         stage.draw()

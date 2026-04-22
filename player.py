@@ -27,27 +27,63 @@ slash=func.imageLoad(2,"image/slash.png",255)[0]
 slash_f=pygame.transform.flip(slash, True, False)
 slash2=pygame.transform.flip(slash, False, True)
 slash2_f=pygame.transform.flip(slash_f, False, True)
+slash_u=pygame.transform.rotate(slash, 90)
+slash_u_f=pygame.transform.rotate(slash_f, -90)
+slash_d=pygame.transform.rotate(slash, -90)
+slash_d_f=pygame.transform.rotate(slash_f, 90)
 
 def draw(i,a,t,x,y):
     if a==0 and t==0:
         value.screen.blit(player[i],(x,y))
     elif a>0:
+        direct=0
+        if value.isW:
+            direct=90
+        if value.isS:
+            direct=-90
         if i<3:
             value.screen.blit(playerA,(x,y))
-            rotated_image = pygame.transform.rotate(sword, 180*a/6-135)
-            value.screen.blit(rotated_image,(x+value.playerWidth/3,y))
-            if 0<a<5 and not value.slash:
-                value.screen.blit(slash,(x+value.playerWidth,y))
-            if 1<a<=6 and value.slash:
-                value.screen.blit(slash2,(x+value.playerWidth,y))
+            rotated_image = pygame.transform.rotate(sword, 180*a/6-135+direct)
+            if value.isW:
+                value.screen.blit(rotated_image,(x,y-value.playerHeight/3))
+                if 0<a<5 and not value.slash:
+                    value.screen.blit(slash_u,(x,y-value.playerHeight))
+                if 1<a<=6 and value.slash:
+                    value.screen.blit(slash_u_f,(x,y-value.playerHeight))
+            elif value.isS:
+                value.screen.blit(rotated_image,(x,y+value.playerHeight/3))
+                if 0<a<5 and not value.slash:
+                    value.screen.blit(slash_d,(x,y+value.playerHeight))
+                if 1<a<=6 and value.slash:
+                    value.screen.blit(slash_d_f,(x,y+value.playerHeight))
+            else:
+                value.screen.blit(rotated_image,(x+value.playerWidth/3,y))
+                if 0<a<5 and not value.slash:
+                    value.screen.blit(slash,(x+value.playerWidth,y))
+                if 1<a<=6 and value.slash:
+                    value.screen.blit(slash2,(x+value.playerWidth,y))
         else:
             value.screen.blit(playerA_f,(x,y))
-            rotated_image = pygame.transform.rotate(sword_f, -180*a/6+135)
+            rotated_image = pygame.transform.rotate(sword_f, -180*a/6+135-direct)
             value.screen.blit(rotated_image,(x-value.playerWidth/2,y))
-            if 0<a<5 and not value.slash:
-                value.screen.blit(slash_f,(x-value.playerWidth,y))
-            if 1<a<=6 and value.slash:
-                value.screen.blit(slash2_f,(x-value.playerWidth,y))
+            if value.isW:
+                value.screen.blit(rotated_image,(x,y-value.playerHeight/3))
+                if 0<a<5 and not value.slash:
+                    value.screen.blit(slash_u_f,(x,y-value.playerHeight))
+                if 1<a<=6 and value.slash:
+                    value.screen.blit(slash_u,(x,y-value.playerHeight))
+            elif value.isS:
+                value.screen.blit(rotated_image,(x,y+value.playerHeight/3))
+                if 0<a<5 and not value.slash:
+                    value.screen.blit(slash_d_f,(x,y+value.playerHeight))
+                if 1<a<=6 and value.slash:
+                    value.screen.blit(slash_d,(x,y+value.playerHeight))
+            else:
+                value.screen.blit(rotated_image,(x-value.playerWidth/3,y))
+                if 0<a<5 and not value.slash:
+                    value.screen.blit(slash_f,(x-value.playerWidth,y))
+                if 1<a<=6 and value.slash:
+                    value.screen.blit(slash2_f,(x-value.playerWidth,y))
     elif t>0:
         if i<3:
             value.screen.blit(playerA,(x,y))

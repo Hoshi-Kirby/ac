@@ -140,6 +140,34 @@ def set(t):
                 if direction!=0:
                     direction=int(direction/abs(direction))
     
+    if t==5:
+        while x<value.maxWidth-10:
+            for j in range(1):
+                value.grid[x][y]=1
+                if direction==0:
+                    x+=1
+                else:
+                    y+=direction
+            
+            if y<=10:
+                if direction==0:
+                    direction = random.randint(0, 5)
+                    if direction!=1:
+                        direction=0
+                else:
+                    direction = 0
+            elif y>=value.height-10:
+                if direction==0:
+                    direction = random.randint(-5, 0)
+                    if direction!=-1:
+                        direction=0
+                else:
+                    direction = 0
+            else:
+                direction = random.randint(-5, 5)
+                if direction!=-1 and direction!=1:
+                    direction=0
+    
     for j in range(10):
         value.grid[value.maxWidth-j-1][y]=1
     value.lastY=y
