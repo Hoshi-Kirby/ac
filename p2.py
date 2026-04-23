@@ -29,14 +29,14 @@ slash2_f=pygame.transform.flip(slash_f, False, True)
 
 for i in range(6):
     dark_surface = pygame.Surface(player[i].get_size(), pygame.SRCALPHA)
-    dark_surface.fill((0, 0, 0, 100))
-    player[i].blit(dark_surface, (0, 0))
+    dark_surface.fill((100, 100, 100, 255))
+    player[i].blit(dark_surface, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
 dark_surface = pygame.Surface(playerC.get_size(), pygame.SRCALPHA)
-dark_surface.fill((0, 0, 0, 100))
-playerC.blit(dark_surface, (0, 0))
+dark_surface.fill((100, 100, 100, 255))
+playerC.blit(dark_surface, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
 dark_surface = pygame.Surface(playerC_f.get_size(), pygame.SRCALPHA)
-dark_surface.fill((0, 0, 0, 100))
-playerC_f.blit(dark_surface, (0, 0))
+dark_surface.fill((100, 100, 100, 255))
+playerC_f.blit(dark_surface, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
 
 
 def memo():

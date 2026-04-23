@@ -27,3 +27,22 @@ def butttonImageDraw(image,imageRect,x,y):
         return True
     else:
         return False
+def draw_bg(bg_img, scroll, max_scroll,img_w,img_h):
+    # 高さに合わせてスケーリング
+    scale = value.height / img_h
+    new_w = int(img_w * scale)*value.size
+    new_h = value.height*value.size
+
+    bg_scaled = pygame.transform.scale(bg_img, (new_w, new_h))
+
+    # スクロール割合
+    t = scroll / max_scroll if max_scroll != 0 else 0
+
+    # 動ける範囲
+    max_offset = max(0, new_w - value.width)
+
+    # パララックス位置
+    offset = int(max_offset * t)
+
+    # 描画
+    value.screen.blit(bg_scaled, (-offset, 0))

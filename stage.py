@@ -7,7 +7,12 @@ from pygame.locals import *
 pygame.init()
 pygame.mixer.init()
 
+ground = pygame.Surface((value.size, value.size), pygame.SRCALPHA)
+pygame.draw.rect(ground, (200, 250, 60, 120), (0, 0, value.size, value.size))
+face=(0,100,0)
+
 def set(t):
+    global face
     direction=0
     x=10
     y=value.lastY
@@ -23,23 +28,28 @@ def set(t):
                 else:
                     y+=direction
             
-            if y<=10:
+            if y<=40:
                 if direction==0:
-                    direction = random.randint(0, 1)
+                    direction = random.randint(0, 5)
+                    if direction!=1:
+                        direction=0
                 else:
                     direction = 0
             elif y>=value.height-10:
                 if direction==0:
-                    direction = random.randint(-1, 0)
+                    direction = random.randint(-5, 0)
+                    if direction!=-1:
+                        direction=0
                 else:
                     direction = 0
             else:
-                
-                if random.randint(0, 4)>1:
-                    if direction==0:
-                        direction = random.randint(-1, 1)
-                    else:
-                        direction *= random.randint(0, 1)
+                if direction==0:
+                    direction = random.randint(-5, 5)
+                else:
+                    direction *= random.randint(0, 5)
+                if direction!=-1 and direction!=1:
+                    direction=0
+
     if t==1:
         while x<value.maxWidth-10:
             for j in range(2):
@@ -65,6 +75,7 @@ def set(t):
                     direction = random.randint(-1, 1)
                 else:
                     direction *= random.randint(0, 1)
+    
     if t==2:
         while x<value.maxWidth-10:
             for j in range(2):
@@ -85,8 +96,35 @@ def set(t):
                 else:
                     direction = 0
             else:
-                direction = random.randint(-1, 1)
+                
+                if random.randint(0, 3)>2:
+                    if direction==0:
+                        direction = random.randint(-1, 1)
+                    else:
+                        direction *= random.randint(0, 1)
+    
     if t==3:
+        while x<value.maxWidth-10:
+            for j in range(2):
+                value.grid[x][y]=1
+                if direction==0:
+                    x+=1
+                else:
+                    y+=direction
+            
+            if y<=10:
+                if direction==0:
+                    direction = random.randint(0, 1)
+                else:
+                    direction = 0
+            elif y>=value.height-10:
+                if direction==0:
+                    direction = random.randint(-1, 0)
+                else:
+                    direction = 0
+            else:
+                direction = random.randint(-1, 1)
+    if t==4:
         while x<value.maxWidth-10:
             for j in range(2):
                 value.grid[x][y]=1
@@ -113,7 +151,7 @@ def set(t):
                     direction *= random.randint(0, 10)
                 if direction!=0:
                     direction=int(direction/abs(direction))
-    if t==4:
+    if t==5:
         while x<value.maxWidth-10:
             for j in range(2):
                 value.grid[x][y]=1
@@ -140,50 +178,44 @@ def set(t):
                 if direction!=0:
                     direction=int(direction/abs(direction))
     
-    if t==5:
-        while x<value.maxWidth-10:
-            for j in range(1):
-                value.grid[x][y]=1
-                if direction==0:
-                    x+=1
-                else:
-                    y+=direction
-            
-            if y<=10:
-                if direction==0:
-                    direction = random.randint(0, 5)
-                    if direction!=1:
-                        direction=0
-                else:
-                    direction = 0
-            elif y>=value.height-10:
-                if direction==0:
-                    direction = random.randint(-5, 0)
-                    if direction!=-1:
-                        direction=0
-                else:
-                    direction = 0
-            else:
-                direction = random.randint(-5, 5)
-                if direction!=-1 and direction!=1:
-                    direction=0
+    
     
     for j in range(10):
         value.grid[value.maxWidth-j-1][y]=1
     value.lastY=y
 
+    if t==0:
+        pygame.draw.rect(ground, (200, 250, 60, 120), (0, 0, value.size, value.size))
+        face=(0,100,0)
+    elif t==1:
+        pygame.draw.rect(ground, (100, 80, 50, 180), (0, 0, value.size, value.size))
+        face=(50,100,0)
+    elif t==3:
+        pygame.draw.rect(ground, (200, 200, 100, 120), (0, 0, value.size, value.size))
+        face=(140,55,0)
+    elif t==4:
+        pygame.draw.rect(ground, (40, 60, 100, 180), (0, 0, value.size, value.size))
+        face=(10,30,50)
+    elif t==5:
+        pygame.draw.rect(ground, (50, 70, 120, 120), (0, 0, value.size, value.size))
+        face=(200,220,250)
+
 def draw():
-    for w in range(value.width-1):
+    for w in range(value.width):
+        isg=False
         for h in range(value.height-1):
+            if isg:
+                value.screen.blit(ground, (w * value.size, h * value.size))
             if value.grid[w+value.scroll][h]==1:
-                pygame.draw.rect(value.screen, (255,255,255), (w*value.size, h*value.size, value.size, value.size))
+                isg=True
+                pygame.draw.rect(value.screen, face, (w*value.size, h*value.size, value.size, value.size))
 
 def isHit(x,y,w,h):
     l=math.floor(x)
     r=math.ceil(x+w/value.size)
     u=math.floor(y)
     d=math.ceil(y+h/value.size)
-    if 0<l and r<value.maxWidth:
+    if 0<l and r<value.maxWidth and 0<u and d<value.height:
         found = any(
             value.grid[x][y] == 1
             for x in range(l, r + 1)
