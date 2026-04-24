@@ -19,17 +19,19 @@ bgData = []
 
 bgData.append(func.imageLoad(2, "image/sougen.png", 255))
 bgData.append(func.imageLoad(2, "image/sinrin.png", 255))
+bgData.append(func.imageLoad(2, "image/kaitei.png", 255))
 bgData.append(func.imageLoad(2, "image/sabaku.png", 255))
 bgData.append(func.imageLoad(2, "image/toshi.png", 255))
 bgData.append(func.imageLoad(2, "image/dokutu.png", 255))
+sb=5
 
 while True:
     if value.step==0:
         value.reset()
     if value.step==1:
-        stage.set(4)
+        stage.set(sb)
     while value.step==1:
-        func.draw_bg(bgData[3][0], value.scroll, 4800,bgData[3][1],bgData[3][2])
+        func.draw_bg(bgData[sb][0], value.scroll, 4800,bgData[sb][1],bgData[sb][2])
         stage.draw()
         arrow.add0()
         p2t=59-int(value.pressShiftTime/2)

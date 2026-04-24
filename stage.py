@@ -190,6 +190,9 @@ def set(t):
     elif t==1:
         pygame.draw.rect(ground, (100, 80, 50, 180), (0, 0, value.size, value.size))
         face=(50,100,0)
+    elif t==2:
+        pygame.draw.rect(ground, (150, 200, 170, 120), (0, 0, value.size, value.size))
+        face=(50,100,80)
     elif t==3:
         pygame.draw.rect(ground, (200, 200, 100, 120), (0, 0, value.size, value.size))
         face=(140,55,0)
