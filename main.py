@@ -24,12 +24,12 @@ bgData.append(func.imageLoad(2, "image/kaitei.png", 255))
 bgData.append(func.imageLoad(2, "image/sabaku.png", 255))
 bgData.append(func.imageLoad(2, "image/toshi.png", 255))
 bgData.append(func.imageLoad(2, "image/dokutu.png", 255))
-sb=random.randint(0,5)
 
 while True:
     if value.step==0:
         value.reset()
     if value.step==1:
+        sb=random.randint(0,5)
         stage.set(sb)
         enemy.set(10,value.maxWidth-10)
     while value.step==1:

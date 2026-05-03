@@ -70,6 +70,13 @@ def calc():
         if stage.isHit(ar.x,ar.y,value.playerWidth,value.playerHeight):
             ar.alive = False
     value.arrows = [a for a in value.arrows if a.alive]
+    for ar in value.enemyArrows:
+        ar.vy += 0.1
+        ar.update()
+        if stage.isHit(ar.x,ar.y,value.playerWidth,value.playerHeight):
+            ar.alive = False
+    value.enemyArrows = [a for a in value.enemyArrows if a.alive]
+
 
 def draw():
     for ar in value.arrows:
@@ -82,4 +89,54 @@ def draw():
         value.screen.blit(
             rotated,
             ((ar.x - value.scroll) * value.size, ar.y * value.size)
+        )
+    for ar in value.enemyArrows:
+        angle = math.atan2(ar.vy, ar.vx)
+        angle_deg = math.degrees(angle)
+
+        img = arrow if ar.vx > 0 else arrow_f
+        rotated = pygame.transform.rotate(img, -angle_deg)
+
+        value.screen.blit(
+            rotated,
+            ((ar.x - value.scroll) * value.size, ar.y * value.size)
+        )
+
+
+def calc_trajectory(ex, ey, px, py, v):
+    g=0.1
+    dx = px - ex
+    dy = ey-py
+    D = v**4 - g * (g * dx**2 + 2 * dy * v**2)
+    if D < 0 or dx==0:
+        return None  # 届かない
+    sqrtD = math.sqrt(D)
+    tan1 = (v**2 - sqrtD) / (g * dx)
+    tan2 = (v**2 + sqrtD) / (g * dx)
+
+    angles = [math.atan(tan1), math.atan(tan2)]
+
+    for theta in angles:
+        vx = v * math.cos(theta)
+        vy = v * math.sin(theta)
+
+        if dx < 0:
+            vx = -vx
+        else:
+            vy = -vy
+
+        return vx, vy
+    return None
+
+def enemyAdd(i):
+    s= random.uniform(0, 3)
+    ex = value.enemyX[i]
+    ey = value.enemyY[i]
+    px = value.playerX
+    py = value.playerY
+    result = calc_trajectory(ex,ey,px,py,s)
+    if not(result is None):
+        vx, vy = result
+        value.enemyArrows.append(
+            value.Arrow(ex, ey-int(value.playerHeight/value.size), vx, vy)
         )

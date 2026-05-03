@@ -87,6 +87,20 @@ enemyVY=[0]*nE
 enemyIsAtack=[0]*nE
 enemyWalkPause=[1]*nE
 enemyWalkTime=[0]*nE
+enemyActive=[False]*nE
+
+enemyArrows=[]
+class EnemyArrow:
+    def __init__(self, x, y, vx, vy):
+        self.x = x
+        self.y = y
+        self.vx = vx
+        self.vy = vy
+        self.alive = True
+
+    def update(self):
+        self.x +=self.vx
+        self.y +=self.vy
 
 def reset():
     value.step=1

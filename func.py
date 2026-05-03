@@ -46,3 +46,11 @@ def draw_bg(bg_img, scroll, max_scroll,img_w,img_h):
 
     # 描画
     value.screen.blit(bg_scaled, (-offset, 0))
+
+def sign(x):
+    if x > 0:
+        return 1
+    elif x < 0:
+        return -1
+    else:
+        return 0

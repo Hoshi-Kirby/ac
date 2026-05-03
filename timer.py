@@ -49,12 +49,13 @@ def dec1():
                 if stage.isHit(value.enemyX[i],value.enemyY[i],value.playerWidth,value.playerHeight):
                     break
                 value.enemyY[i]+=0.1
-        d = 1 if value.enemyVX[i] >= 0 else -1
         for j in range(abs(value.enemyVX[i])):
-            if stage.isHit(value.enemyX[i]+d,value.enemyY[i],value.playerWidth,value.playerHeight-1):
+            if stage.isHit(value.enemyX[i]+func.sign(value.enemyVX[i]),value.enemyY[i],value.playerWidth,value.playerHeight-1):
                 break
-            if value.enemyX[i]>value.maxWidth-math.ceil(value.playerWidth/value.size)-2 and d==1:
+            if value.enemyX[i]>value.maxWidth-math.ceil(value.playerWidth/value.size)-2 and func.sign(value.enemyVX[i])==1:
                 break
-            if value.enemyX[i]<2 and d==-1:
+            if value.enemyX[i]<2 and func.sign(value.enemyVX[i])==-1:
                 break
-            value.enemyX[i]+=d
+            if 4<=value.enemyType[i]<=5 and (not stage.isFloor(func.sign(value.enemyVX[i]),value.enemyX[i],int(value.enemyY[i]+value.playerHeight/value.size+1),value.playerWidth/value.size)):
+                break
+            value.enemyX[i]+=func.sign(value.enemyVX[i])
