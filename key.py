@@ -83,7 +83,7 @@ def pressed1():
 
     if value.dashLeftTime>0:
         for i in range(2):
-            if value.playerX>0 and not stage.isHit(value.playerX-1,value.playerY-1,value.playerWidth,value.playerHeight):
+            if value.playerX>1 and not stage.isHit(value.playerX-1,value.playerY-1,value.playerWidth,value.playerHeight):
                 value.playerX-=1
     if value.dashRightTime>0:
         for i in range(2):

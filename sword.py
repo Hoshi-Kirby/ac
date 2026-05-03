@@ -12,8 +12,8 @@ sword=func.imageLoad(2,"image/sword.png",255)[0]
 sword_f=pygame.transform.flip(sword, True, False)
 sword = pygame.transform.rotate(sword, -45)
 sword_f = pygame.transform.rotate(sword_f, 45)
-sword_u = pygame.transform.rotate(sword, 90)
-sword_d = pygame.transform.rotate(sword, -90)
+sword_d = pygame.transform.rotate(sword, 90)
+sword_u = pygame.transform.rotate(sword, -90)
 
 def calc():
     if value.throwTime>0:

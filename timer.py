@@ -38,3 +38,23 @@ def dec1():
         value.throwTime-=1
     if value.fallTime>0:
         value.fallTime-=1
+
+    for i in range(value.nE):
+        if not stage.isHit(value.enemyX[i],value.enemyY[i],value.playerWidth,value.playerHeight) or value.enemyVY[i]<=0:
+            value.enemyVY[i]+=0.1
+        else:
+            value.enemyVY[i]=0
+        if not stage.isHit(value.enemyX[i],value.enemyY[i],value.playerWidth,value.playerHeight) and value.enemyVY[i]>0 and value.enemyY[i]<value.height-value.playerHeight/value.size*2:
+            for j in range(int(value.enemyVY[i]*10)):
+                if stage.isHit(value.enemyX[i],value.enemyY[i],value.playerWidth,value.playerHeight):
+                    break
+                value.enemyY[i]+=0.1
+        d = 1 if value.enemyVX[i] >= 0 else -1
+        for j in range(abs(value.enemyVX[i])):
+            if stage.isHit(value.enemyX[i]+d,value.enemyY[i],value.playerWidth,value.playerHeight-1):
+                break
+            if value.enemyX[i]>value.maxWidth-math.ceil(value.playerWidth/value.size)-2 and d==1:
+                break
+            if value.enemyX[i]<2 and d==-1:
+                break
+            value.enemyX[i]+=d

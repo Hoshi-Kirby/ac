@@ -77,7 +77,16 @@ class Arrow:
     def update(self):
         self.x +=self.vx
         self.y +=self.vy
-        
+
+nE=10
+enemyType=[0]*nE
+enemyX=[0]*nE
+enemyY=[0]*nE
+enemyVX=[0]*nE
+enemyVY=[0]*nE
+enemyIsAtack=[0]*nE
+enemyWalkPause=[1]*nE
+enemyWalkTime=[0]*nE
 
 def reset():
     value.step=1

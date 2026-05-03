@@ -4,6 +4,7 @@ import stage
 import value
 import func
 import player
+import enemy
 import key
 import sword
 import arrow
@@ -23,20 +24,23 @@ bgData.append(func.imageLoad(2, "image/kaitei.png", 255))
 bgData.append(func.imageLoad(2, "image/sabaku.png", 255))
 bgData.append(func.imageLoad(2, "image/toshi.png", 255))
 bgData.append(func.imageLoad(2, "image/dokutu.png", 255))
-sb=5
+sb=random.randint(0,5)
 
 while True:
     if value.step==0:
         value.reset()
     if value.step==1:
         stage.set(sb)
+        enemy.set(10,value.maxWidth-10)
     while value.step==1:
         func.draw_bg(bgData[sb][0], value.scroll, 4800,bgData[sb][1],bgData[sb][2])
         stage.draw()
         arrow.add0()
         p2t=59-int(value.pressShiftTime/2)
         p2.draw(value.player2Pause[p2t]+value.player2IsLeft[p2t],value.player2AtackTime[p2t],value.player2ThrowTime[p2t],(value.player2X[p2t]-value.scroll)*value.size,value.player2Y[p2t]*value.size)
-        player.draw(value.playerPause+value.playerIsLeft,value.atackTime,value.throwTime,(value.playerX-value.scroll)*value.size,value.playerY*value.size)
+        player.draw(value.playerPause+value.playerIsLeft,value.atackTime,value.throwTime,(value.playerX-value.scroll)*value.size,value.playerY*value.size)              
+        enemy.draw()
+
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -50,6 +54,7 @@ while True:
         arrow.addCheck(p2t)
         arrow.calc()
         arrow.draw()
+        enemy.calc()
 
         p2.memo()
 
