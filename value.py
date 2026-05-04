@@ -88,6 +88,8 @@ enemyIsAtack=[0]*nE
 enemyWalkPause=[1]*nE
 enemyWalkTime=[0]*nE
 enemyActive=[False]*nE
+enemyAlive=[1]*nE
+enemyDirect=[0]*nE
 
 enemyArrows=[]
 class EnemyArrow:
@@ -101,6 +103,8 @@ class EnemyArrow:
     def update(self):
         self.x +=self.vx
         self.y +=self.vy
+
+ghostTime=[0]*nE
 
 def reset():
     value.step=1

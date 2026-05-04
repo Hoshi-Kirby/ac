@@ -10,7 +10,7 @@ pygame.init()
 pygame.mixer.init()
 
 def event1(key):
-    if key==K_SPACE:
+    if key==K_SPACE or key==K_z:
         if stage.isHit(value.playerX,value.playerY,value.playerWidth,value.playerHeight):
             value.playerVY=-2
             value.jumpTime=0
@@ -26,11 +26,11 @@ def event1(key):
             value.jumpTime=0
     if key==K_r:
         value.step=0
-    if key==K_a:
+    if key==K_a or key==K_LEFT:
         value.playerIsLeft=3
-    if key==K_d:
+    if key==K_d or key==K_RIGHT:
         value.playerIsLeft=0
-    if key==K_RETURN:
+    if key==K_RETURN or key==K_x:
         if value.throwTime==0 and value.fallTime==0:
             value.player2A[119]=True
             if value.slashTime==0:
@@ -44,7 +44,7 @@ def event1(key):
                 else:
                     value.atackTime=0
                     value.slash=True
-    if key==K_RSHIFT:
+    if key==K_RSHIFT or key==K_c:
         if value.throwTime==0 and value.fallTime==0:
             value.player2C[119]=True
             value.throwTime=12
@@ -63,17 +63,17 @@ def event1(key):
             value.swordIsLeft=value.playerIsLeft==3
     if value.dashCoolTime==0:
         if value.dashTimeA>0:
-            if key==K_a:
+            if key==K_a or key==K_LEFT:
                 value.dashLeftTime=6
                 value.dashCoolTime=20
         if value.dashTimeD>0:
-            if key==K_d:
+            if key==K_d or key==K_RIGHT:
                 value.dashRightTime=6
                 value.dashCoolTime=20
-        if key==K_a:
+        if key==K_a or key==K_LEFT:
             value.dashTimeA=15
             value.dashTimeD=0
-        if key==K_d:
+        if key==K_d or key==K_RIGHT:
             value.dashTimeA=0
             value.dashTimeD=15
 
@@ -90,7 +90,7 @@ def pressed1():
             if value.playerX<value.maxWidth and not stage.isHit(value.playerX+1,value.playerY-1,value.playerWidth,value.playerHeight):
                 value.playerX+=1
 
-    if pressed_keys[K_SPACE]:
+    if pressed_keys[K_SPACE] or pressed_keys[K_z]:
         if 0<=value.jumpTime<10:
             value.jumpTime+=1
     else:
@@ -107,7 +107,7 @@ def pressed1():
             value.pressShiftTime-=2
 
 
-    if pressed_keys[K_d] ^ pressed_keys[K_a]:
+    if pressed_keys[K_d] ^ pressed_keys[K_a] ^ pressed_keys[K_RIGHT] ^ pressed_keys[K_LEFT]:
         value.playerPauseTime+=1
         if value.playerPauseTime>20:
             value.playerPauseTime=0
@@ -120,7 +120,7 @@ def pressed1():
         if value.playerPauseTime==16:
             value.playerPause=0
         
-        if pressed_keys[K_d]:
+        if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
             if not stage.isHit(value.playerX+1,value.playerY-1,value.playerWidth,value.playerHeight):
                 if value.playerX<value.maxWidth-math.ceil(value.playerWidth/value.size)-2:
                     value.playerX+=1
@@ -131,7 +131,7 @@ def pressed1():
                 if value.playerX-value.scroll>value.width/2 and value.scroll<value.maxWidth-value.width:
                         value.scroll+=1
             value.playerIsLeft=0
-        if pressed_keys[K_a]:
+        if pressed_keys[K_a] or pressed_keys[K_LEFT]:
             if not stage.isHit(value.playerX-1,value.playerY-1,value.playerWidth,value.playerHeight):
                 if value.playerX>1:
                     value.playerX-=1
@@ -150,12 +150,12 @@ def pressed1():
         if value.dashCoolTime>0:
             value.dashCoolTime-=1
     
-    if pressed_keys[K_w]:
+    if pressed_keys[K_w] or pressed_keys[K_UP]:
         value.isW=True
     else:
         value.isW=False
 
-    if pressed_keys[K_s]:
+    if pressed_keys[K_s] or pressed_keys[K_DOWN]:
         value.isS=True
     else:
         value.isS=False

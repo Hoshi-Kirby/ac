@@ -69,11 +69,20 @@ def calc():
         ar.update()
         if stage.isHit(ar.x,ar.y,value.playerWidth,value.playerHeight):
             ar.alive = False
+        for i in range(value.nE):
+            if func.spHitSp(ar.x,ar.y,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[i],value.enemyY[i],value.playerWidth/value.size,value.playerHeight/value.size):
+                if value.enemyType[i]==2:
+                    ar.vx*=-1
+                else:
+                    ar.alive = False
+                    value.enemyAlive[i]=0
     value.arrows = [a for a in value.arrows if a.alive]
     for ar in value.enemyArrows:
-        ar.vy += 0.1
+        ar.vy += 0.02
         ar.update()
         if stage.isHit(ar.x,ar.y,value.playerWidth,value.playerHeight):
+            ar.alive = False
+        if func.spHitSp(ar.x,ar.y,value.playerWidth/value.size,value.playerHeight/value.size,value.playerX,value.playerY,value.playerWidth/value.size,value.playerHeight/value.size):
             ar.alive = False
     value.enemyArrows = [a for a in value.enemyArrows if a.alive]
 
@@ -104,9 +113,9 @@ def draw():
 
 
 def calc_trajectory(ex, ey, px, py, v):
-    g=0.1
+    g=0.02
     dx = px - ex
-    dy = ey-py
+    dy = ey-py-value.playerHeight/value.size/2
     D = v**4 - g * (g * dx**2 + 2 * dy * v**2)
     if D < 0 or dx==0:
         return None  # 届かない
@@ -129,7 +138,7 @@ def calc_trajectory(ex, ey, px, py, v):
     return None
 
 def enemyAdd(i):
-    s= random.uniform(0, 3)
+    s= random.uniform(0, 1)
     ex = value.enemyX[i]
     ey = value.enemyY[i]
     px = value.playerX

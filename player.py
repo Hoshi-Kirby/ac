@@ -50,18 +50,24 @@ def draw(i,a,t,x,y):
                     value.screen.blit(slash_u,(x,y-value.playerHeight))
                 if 1<a<=6 and value.slash:
                     value.screen.blit(slash_u_f,(x,y-value.playerHeight))
+                dameX=0
+                dameY=-value.playerHeight
             elif value.isS:
                 value.screen.blit(rotated_image,(x,y+value.playerHeight/3))
                 if 0<a<5 and not value.slash:
                     value.screen.blit(slash_d,(x,y+value.playerHeight))
                 if 1<a<=6 and value.slash:
                     value.screen.blit(slash_d_f,(x,y+value.playerHeight))
+                dameX=0
+                dameY=value.playerHeight
             else:
                 value.screen.blit(rotated_image,(x+value.playerWidth/3,y))
                 if 0<a<5 and not value.slash:
                     value.screen.blit(slash,(x+value.playerWidth,y))
                 if 1<a<=6 and value.slash:
                     value.screen.blit(slash2,(x+value.playerWidth,y))
+                dameX=value.playerWidth
+                dameY=0
         else:
             value.screen.blit(playerA_f,(x,y))
             rotated_image = pygame.transform.rotate(sword_f, -180*a/6+135-direct)
@@ -72,18 +78,27 @@ def draw(i,a,t,x,y):
                     value.screen.blit(slash_u_f,(x,y-value.playerHeight))
                 if 1<a<=6 and value.slash:
                     value.screen.blit(slash_u,(x,y-value.playerHeight))
+                dameX=0
+                dameY=-value.playerHeight
             elif value.isS:
                 value.screen.blit(rotated_image,(x,y+value.playerHeight/3))
                 if 0<a<5 and not value.slash:
                     value.screen.blit(slash_d_f,(x,y+value.playerHeight))
                 if 1<a<=6 and value.slash:
                     value.screen.blit(slash_d,(x,y+value.playerHeight))
+                dameX=0
+                dameY=value.playerHeight
             else:
                 value.screen.blit(rotated_image,(x-value.playerWidth/3,y))
                 if 0<a<5 and not value.slash:
                     value.screen.blit(slash_f,(x-value.playerWidth,y))
                 if 1<a<=6 and value.slash:
                     value.screen.blit(slash2_f,(x-value.playerWidth,y))
+                dameX=-value.playerWidth
+                dameY=0
+        for i in range(value.nE):
+            if func.spHitSp(value.playerX+dameX/value.size,value.playerY+dameY/value.size,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[i],value.enemyY[i],value.playerWidth/value.size,value.playerHeight/value.size):    
+                value.enemyAlive[i]=0
     elif t>0:
         if i<3:
             value.screen.blit(playerA,(x,y))

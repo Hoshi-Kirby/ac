@@ -32,6 +32,12 @@ def calc():
                 value.throwTime=0
                 value.fallTime=5
 
+        for i in range(value.nE):
+            if func.spHitSp(value.swordX,value.swordY,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[i],value.enemyY[i],value.playerWidth/value.size,value.playerHeight/value.size):    
+                value.enemyAlive[i]=0
+                value.throwTime=0
+                value.fallTime=5
+
 def draw():
     if value.throwTime>0:
         if value.swordVY>0:
