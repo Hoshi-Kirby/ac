@@ -55,6 +55,7 @@ while True:
         arrow.calc()
         arrow.draw()
         enemy.calc()
+        enemy.alive()
 
         p2.memo()
 

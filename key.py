@@ -32,6 +32,7 @@ def event1(key):
         value.playerIsLeft=0
     if key==K_RETURN or key==K_x:
         if value.throwTime==0 and value.fallTime==0:
+            value.enemyIsSlash=[False]*value.nE
             value.player2A[119]=True
             if value.slashTime==0:
                 value.atackTime=6

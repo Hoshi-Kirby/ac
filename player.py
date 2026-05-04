@@ -96,9 +96,14 @@ def draw(i,a,t,x,y):
                     value.screen.blit(slash2_f,(x-value.playerWidth,y))
                 dameX=-value.playerWidth
                 dameY=0
-        for i in range(value.nE):
-            if func.spHitSp(value.playerX+dameX/value.size,value.playerY+dameY/value.size,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[i],value.enemyY[i],value.playerWidth/value.size,value.playerHeight/value.size):    
-                value.enemyAlive[i]=0
+        for j in range(value.nE):
+            if not value.enemyIsSlash[j]:
+                if func.spHitSp(value.playerX+dameX/value.size,value.playerY+dameY/value.size,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[j],value.enemyY[j],value.playerWidth/value.size,value.playerHeight/value.size):    
+                    if value.ghostTime[j]==0:
+                        value.enemyHP[j]-=3
+                        value.enemyIsSlash[j]=True
+                        if value.enemyType[j]==2:
+                            value.roboBackTime[j]=10*func.sign(value.enemyX[j]-value.playerX)
     elif t>0:
         if i<3:
             value.screen.blit(playerA,(x,y))

@@ -34,9 +34,11 @@ def calc():
 
         for i in range(value.nE):
             if func.spHitSp(value.swordX,value.swordY,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[i],value.enemyY[i],value.playerWidth/value.size,value.playerHeight/value.size):    
-                value.enemyAlive[i]=0
-                value.throwTime=0
-                value.fallTime=5
+                if value.ghostTime[i]==0:
+                    value.enemyHP[i]-=1
+                    value.throwTime=0
+                    if value.enemyType[i]==2:
+                        value.roboBackTime[i]=10*func.sign(value.enemyX[i]-value.playerX)
 
 def draw():
     if value.throwTime>0:

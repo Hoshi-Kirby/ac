@@ -90,6 +90,8 @@ enemyWalkTime=[0]*nE
 enemyActive=[False]*nE
 enemyAlive=[1]*nE
 enemyDirect=[0]*nE
+enemyHP=[0]*nE
+enemyIsSlash=[False]*nE
 
 enemyArrows=[]
 class EnemyArrow:
@@ -105,6 +107,7 @@ class EnemyArrow:
         self.y +=self.vy
 
 ghostTime=[0]*nE
+roboBackTime=[0]*nE
 
 def reset():
     value.step=1

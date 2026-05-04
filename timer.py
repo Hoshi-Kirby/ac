@@ -40,7 +40,17 @@ def dec1():
         value.fallTime-=1
 
     for i in range(value.nE):
-        if value.enemyType[i]==6:
+        if value.enemyType[i]==2:
+            if value.roboBackTime[i]!=0:
+                value.roboBackTime[i]-=func.sign(value.roboBackTime[i])
+                if stage.isHit(value.enemyX[i]+func.sign(value.roboBackTime[i]),value.enemyY[i],value.playerWidth,value.playerHeight-1):
+                    break
+                if value.enemyX[i]>value.maxWidth-math.ceil(value.playerWidth/value.size)-2 and func.sign(value.roboBackTime[i])==1:
+                    break
+                if value.enemyX[i]<2 and func.sign(value.roboBackTime[i])==-1:
+                    break
+                value.enemyX[i]+=func.sign(value.roboBackTime[i])
+        if value.enemyType[i]==6 and value.enemyAlive[i]==1:
             if value.ghostTime[i]>0:
                 value.ghostTime[i]-=1
                 value.enemyY[i]+=value.enemyVY[i]

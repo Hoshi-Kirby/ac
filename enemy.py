@@ -33,6 +33,10 @@ def search(x):
 def set(l,r):
     value.enemyActive=[False]*value.nE
     value.enemyAlive=[1]*value.nE
+    value.enemyHP=[5]*value.nE
+    value.ghostTime=[0]*value.nE
+    value.enemyVX=[0]*value.nE
+    value.enemyVY=[0]*value.nE
     for i in range(value.nE):
         x=random.randint(l,r)
         value.enemyX[i]=x
@@ -104,7 +108,7 @@ def calc():
                             arrow.enemyAdd(i)
                 case 6:
                     if value.enemyActive[i]:
-                        if value.ghostTime[i]==0 and random.randint(0,100)==0:
+                        if value.ghostTime[i]==0 and random.randint(0,60)==0:
                             if (value.playerX-value.enemyX[i])**2+(value.playerY-value.enemyY[i])**2<1600:
                                 value.ghostTime[i]=60
                         if value.ghostTime[i]<10:
@@ -136,3 +140,9 @@ def calc():
                                 if random.randint(0,10)==0:
                                     value.enemyVY[i]=-1
 
+
+def alive():
+    for i in range(value.nE):
+        if value.enemyHP[i]<=0:
+            value.enemyHP[i]=0
+            value.enemyAlive[i]=0

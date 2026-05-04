@@ -73,9 +73,11 @@ def calc():
             if func.spHitSp(ar.x,ar.y,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[i],value.enemyY[i],value.playerWidth/value.size,value.playerHeight/value.size):
                 if value.enemyType[i]==2:
                     ar.vx*=-1
+                elif value.ghostTime[i]>0:
+                    pass
                 else:
                     ar.alive = False
-                    value.enemyAlive[i]=0
+                    value.enemyHP[i]-=2
     value.arrows = [a for a in value.arrows if a.alive]
     for ar in value.enemyArrows:
         ar.vy += 0.02
