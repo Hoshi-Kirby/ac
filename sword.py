@@ -3,6 +3,7 @@ import pygame, time
 import value
 import func
 import stage
+import enemy
 from pygame.locals import *
 # ゲーム画面を初期化 --- (*1)
 pygame.init()
@@ -34,11 +35,10 @@ def calc():
 
         for i in range(value.nE):
             if func.spHitSp(value.swordX,value.swordY,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[i],value.enemyY[i],value.playerWidth/value.size,value.playerHeight/value.size):    
-                if value.ghostTime[i]==0:
+                if value.ghostTime[i]<20 and value.moguMoguTime[i]==0:
                     value.enemyHP[i]-=1
                     value.throwTime=0
-                    if value.enemyType[i]==2:
-                        value.roboBackTime[i]=10*func.sign(value.enemyX[i]-value.playerX)
+                    enemy.nockBack(i)
 
 def draw():
     if value.throwTime>0:

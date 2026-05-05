@@ -38,18 +38,23 @@ def dec1():
         value.throwTime-=1
     if value.fallTime>0:
         value.fallTime-=1
+    if value.fireTime<=0:
+        value.fireTime=30
+    value.fireTime-=1
 
     for i in range(value.nE):
-        if value.enemyType[i]==2:
-            if value.roboBackTime[i]!=0:
-                value.roboBackTime[i]-=func.sign(value.roboBackTime[i])
-                if stage.isHit(value.enemyX[i]+func.sign(value.roboBackTime[i]),value.enemyY[i],value.playerWidth,value.playerHeight-1):
-                    break
-                if value.enemyX[i]>value.maxWidth-math.ceil(value.playerWidth/value.size)-2 and func.sign(value.roboBackTime[i])==1:
-                    break
-                if value.enemyX[i]<2 and func.sign(value.roboBackTime[i])==-1:
-                    break
-                value.enemyX[i]+=func.sign(value.roboBackTime[i])
+        if value.enemyBackTime[i]!=0:
+            value.enemyBackTime[i]-=func.sign(value.enemyBackTime[i])
+            if stage.isHit(value.enemyX[i]+func.sign(value.enemyBackTime[i]),value.enemyY[i],value.playerWidth,value.playerHeight-1):
+                break
+            if value.enemyX[i]>value.maxWidth-math.ceil(value.playerWidth/value.size)-2 and func.sign(value.enemyBackTime[i])==1:
+                break
+            if value.enemyX[i]<2 and func.sign(value.enemyBackTime[i])==-1:
+                break
+            value.enemyX[i]+=func.sign(value.enemyBackTime[i])
+        if value.enemyType[i]==1:
+            if value.moguMoguTime[i]>0:
+                value.moguMoguTime[i]-=1
         if value.enemyType[i]==6 and value.enemyAlive[i]==1:
             if value.ghostTime[i]>0:
                 value.ghostTime[i]-=1
@@ -60,6 +65,24 @@ def dec1():
                     if value.enemyX[i]<2 and func.sign(value.enemyVX[i])==-1:
                         break
                     value.enemyX[i]+=func.sign(value.enemyVX[i])
+        elif (value.enemyType[i]==3 or value.enemyType[i]==7) and value.enemyAlive[i]==1:
+            if value.roboAtackTime[i]>0:
+                value.roboAtackTime[i]-=1
+            if value.roboMoveTime[i]>0:
+                value.roboMoveTime[i]-=1
+            if (not stage.isHit(value.enemyX[i],value.enemyY[i],value.playerWidth,value.playerHeight) or value.enemyVY[i]<0) and value.enemyY[i]<value.height-value.playerHeight/value.size*2:
+                for j in range(int(abs(value.enemyVY[i])*10)):
+                    if stage.isHit(value.enemyX[i],value.enemyY[i],value.playerWidth,value.playerHeight) and value.enemyVY[i]>0:
+                        break
+                    value.enemyY[i]+=0.1*func.sign(value.enemyVY[i])
+            for j in range(abs(value.enemyVX[i])):
+                if stage.isHit(value.enemyX[i]+func.sign(value.enemyVX[i]),value.enemyY[i],value.playerWidth,value.playerHeight-1):
+                    break
+                if value.enemyX[i]>value.maxWidth-math.ceil(value.playerWidth/value.size)-2 and func.sign(value.enemyVX[i])==1:
+                    break
+                if value.enemyX[i]<2 and func.sign(value.enemyVX[i])==-1:
+                    break
+                value.enemyX[i]+=func.sign(value.enemyVX[i])
         else:
             if not stage.isHit(value.enemyX[i],value.enemyY[i],value.playerWidth,value.playerHeight) or value.enemyVY[i]<=0:
                 value.enemyVY[i]+=0.1

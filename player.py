@@ -3,6 +3,7 @@ import pygame, time
 import value
 import func
 import stage
+import enemy
 from pygame.locals import *
 # ゲーム画面を初期化 --- (*1)
 pygame.init()
@@ -50,24 +51,24 @@ def draw(i,a,t,x,y):
                     value.screen.blit(slash_u,(x,y-value.playerHeight))
                 if 1<a<=6 and value.slash:
                     value.screen.blit(slash_u_f,(x,y-value.playerHeight))
-                dameX=0
-                dameY=-value.playerHeight
+                value.dameX=0
+                value.dameY=-value.playerHeight
             elif value.isS:
                 value.screen.blit(rotated_image,(x,y+value.playerHeight/3))
                 if 0<a<5 and not value.slash:
                     value.screen.blit(slash_d,(x,y+value.playerHeight))
                 if 1<a<=6 and value.slash:
                     value.screen.blit(slash_d_f,(x,y+value.playerHeight))
-                dameX=0
-                dameY=value.playerHeight
+                value.dameX=0
+                value.dameY=value.playerHeight
             else:
                 value.screen.blit(rotated_image,(x+value.playerWidth/3,y))
                 if 0<a<5 and not value.slash:
                     value.screen.blit(slash,(x+value.playerWidth,y))
                 if 1<a<=6 and value.slash:
                     value.screen.blit(slash2,(x+value.playerWidth,y))
-                dameX=value.playerWidth
-                dameY=0
+                value.dameX=value.playerWidth
+                value.dameY=0
         else:
             value.screen.blit(playerA_f,(x,y))
             rotated_image = pygame.transform.rotate(sword_f, -180*a/6+135-direct)
@@ -78,32 +79,31 @@ def draw(i,a,t,x,y):
                     value.screen.blit(slash_u_f,(x,y-value.playerHeight))
                 if 1<a<=6 and value.slash:
                     value.screen.blit(slash_u,(x,y-value.playerHeight))
-                dameX=0
-                dameY=-value.playerHeight
+                value.dameX=0
+                value.dameY=-value.playerHeight
             elif value.isS:
                 value.screen.blit(rotated_image,(x,y+value.playerHeight/3))
                 if 0<a<5 and not value.slash:
                     value.screen.blit(slash_d_f,(x,y+value.playerHeight))
                 if 1<a<=6 and value.slash:
                     value.screen.blit(slash_d,(x,y+value.playerHeight))
-                dameX=0
-                dameY=value.playerHeight
+                value.dameX=0
+                value.dameY=value.playerHeight
             else:
                 value.screen.blit(rotated_image,(x-value.playerWidth/3,y))
                 if 0<a<5 and not value.slash:
                     value.screen.blit(slash_f,(x-value.playerWidth,y))
                 if 1<a<=6 and value.slash:
                     value.screen.blit(slash2_f,(x-value.playerWidth,y))
-                dameX=-value.playerWidth
-                dameY=0
+                value.dameX=-value.playerWidth
+                value.dameY=0
         for j in range(value.nE):
             if not value.enemyIsSlash[j]:
-                if func.spHitSp(value.playerX+dameX/value.size,value.playerY+dameY/value.size,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[j],value.enemyY[j],value.playerWidth/value.size,value.playerHeight/value.size):    
-                    if value.ghostTime[j]==0:
+                if func.spHitSp(value.playerX+value.dameX/value.size,value.playerY+value.dameY/value.size,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[j],value.enemyY[j],value.playerWidth/value.size,value.playerHeight/value.size):    
+                    if value.ghostTime[j]<20 and value.moguMoguTime[j]==0:
                         value.enemyHP[j]-=3
                         value.enemyIsSlash[j]=True
-                        if value.enemyType[j]==2:
-                            value.roboBackTime[j]=10*func.sign(value.enemyX[j]-value.playerX)
+                        enemy.nockBack(j)
     elif t>0:
         if i<3:
             value.screen.blit(playerA,(x,y))

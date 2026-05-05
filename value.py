@@ -49,6 +49,8 @@ swordY=0
 swordVX=0
 swordVY=0
 swordIsLeft=False
+dameX=0
+dameY=0
 
 player2X=[6]*120
 player2Y=[43]*120
@@ -92,6 +94,7 @@ enemyAlive=[1]*nE
 enemyDirect=[0]*nE
 enemyHP=[0]*nE
 enemyIsSlash=[False]*nE
+enemyBackTime=[0]*nE
 
 enemyArrows=[]
 class EnemyArrow:
@@ -107,7 +110,26 @@ class EnemyArrow:
         self.y +=self.vy
 
 ghostTime=[0]*nE
-roboBackTime=[0]*nE
+roboWalkTime=[0]*nE
+moguMoguTime=[0]*nE
+moguNotice=[0]*nE
+roboMoveTime=[1]*nE
+roboAtackTime=[0]*nE
+
+fireBalls=[]
+class FireBall:
+    def __init__(self, x, y, vx, vy):
+        self.x = x
+        self.y = y
+        self.vx = vx
+        self.vy = vy
+        self.alive = True
+
+    def update(self):
+        self.x +=self.vx
+        self.y +=self.vy
+
+fireTime=0
 
 def reset():
     value.step=1

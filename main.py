@@ -8,6 +8,7 @@ import enemy
 import key
 import sword
 import arrow
+import fire
 import timer
 import p2
 from pygame.locals import *
@@ -40,6 +41,7 @@ while True:
         p2.draw(value.player2Pause[p2t]+value.player2IsLeft[p2t],value.player2AtackTime[p2t],value.player2ThrowTime[p2t],(value.player2X[p2t]-value.scroll)*value.size,value.player2Y[p2t]*value.size)
         player.draw(value.playerPause+value.playerIsLeft,value.atackTime,value.throwTime,(value.playerX-value.scroll)*value.size,value.playerY*value.size)              
         enemy.draw()
+        fire.draw()
 
         for event in pygame.event.get():
             if event.type == QUIT:
@@ -56,6 +58,7 @@ while True:
         arrow.draw()
         enemy.calc()
         enemy.alive()
+        fire.calc()
 
         p2.memo()
 
