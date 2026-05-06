@@ -205,6 +205,18 @@ def calc():
 
                         if value.roboMoveTime[i]==0 and value.roboAtackTime[i]==0:
                             value.roboMoveTime[i]=90
+                case 7:
+                    if value.enemyActive[i]:
+                        if abs(value.playerX-value.enemyX[i])<70:
+                            if random.randint(0,20)==0:
+                                value.enemyVY[i]=func.sign(random.randint(-5,3))
+                            if random.randint(0,20)==0:
+                                value.enemyVX[i]=random.randint(-3,3)
+                        else:
+                            value.enemyVX[i]=0
+                            value.enemyVY[i]=0
+                        if value.enemyY[i]<0:
+                            value.enemyVY[i]=random.randint(0,1)
 
         else:
             value.enemyVX[i]=0

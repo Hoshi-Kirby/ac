@@ -6,6 +6,7 @@ import func
 import player
 import enemy
 import key
+import mouse
 import sword
 import arrow
 import fire
@@ -49,6 +50,9 @@ while True:
                 sys.exit()
             if event.type == KEYDOWN:
                 key.event1(event.key)
+            if event.type == MOUSEBUTTONDOWN:
+                mouse.event1(event.button)
+
         key.pressed1()
 
         sword.calc()
