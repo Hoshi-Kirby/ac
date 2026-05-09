@@ -17,17 +17,17 @@ def event1(key):
         elif stage.isHit(value.playerX+1,value.playerY,value.playerWidth,value.playerHeight) and value.playerIsLeft==0:
             value.playerVY=-2
             value.dashLeftTime=4
-            value.playerIsLeft=3-value.playerIsLeft
+            value.playerIsLeft=1-value.playerIsLeft
             value.jumpTime=0
-        elif stage.isHit(value.playerX-1,value.playerY,value.playerWidth,value.playerHeight) and value.playerIsLeft==3:
+        elif stage.isHit(value.playerX-1,value.playerY,value.playerWidth,value.playerHeight) and value.playerIsLeft==1:
             value.playerVY=-2
             value.dashRightTime=4
-            value.playerIsLeft=3-value.playerIsLeft
+            value.playerIsLeft=1-value.playerIsLeft
             value.jumpTime=0
     if key==K_r:
         value.step=0
     if key==K_a or key==K_LEFT:
-        value.playerIsLeft=3
+        value.playerIsLeft=1
     if key==K_d or key==K_RIGHT:
         value.playerIsLeft=0
     if key==K_RETURN or key==K_x:
@@ -61,7 +61,7 @@ def event1(key):
             else:
                 value.swordVX=2
                 value.swordVY=0
-            value.swordIsLeft=value.playerIsLeft==3
+            value.swordIsLeft=value.playerIsLeft==1
     if value.dashCoolTime==0:
         if value.dashTimeA>0:
             if key==K_a or key==K_LEFT:
@@ -113,13 +113,13 @@ def pressed1():
         if value.playerPauseTime>20:
             value.playerPauseTime=0
         if value.playerPauseTime==1:
-            value.playerPause=1
-        if value.playerPauseTime==6:
-            value.playerPause=0
-        if value.playerPauseTime==11:
             value.playerPause=2
+        if value.playerPauseTime==6:
+            value.playerPause=1
+        if value.playerPauseTime==11:
+            value.playerPause=3
         if value.playerPauseTime==16:
-            value.playerPause=0
+            value.playerPause=1
         
         if pressed_keys[K_d] or pressed_keys[K_RIGHT]:
             if not stage.isHit(value.playerX+1,value.playerY-1,value.playerWidth,value.playerHeight):
@@ -140,9 +140,9 @@ def pressed1():
                     value.scroll-=1
                     if value.playerX-value.scroll<value.width/2 and value.scroll>0:
                         value.scroll-=1
-            value.playerIsLeft=3
+            value.playerIsLeft=1
     else:
-        value.playerPause=0
+        value.playerPause=1
         value.playerPauseTime=0
         if value.dashTimeA>0:
             value.dashTimeA-=1

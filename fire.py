@@ -20,6 +20,8 @@ def calc():
             fb.alive = False
         if func.spHitSp(int(fb.x/value.size),int(fb.y/value.size),value.playerWidth/value.size,value.playerHeight/value.size,value.playerX,value.playerY,value.playerWidth/value.size,value.playerHeight/value.size):
             fb.alive = False
+            value.playerHP-=1
+            value.playerDamageTime=10
         if value.throwTime>0 and func.spHitSp(int(fb.x/value.size),int(fb.y/value.size),value.playerWidth/value.size,value.playerHeight/value.size,value.swordX,value.swordY,value.playerWidth/value.size,value.playerHeight/value.size):
             fb.alive = False
         if value.atackTime>0 and func.spHitSp(int(fb.x/value.size),int(fb.y/value.size),value.playerWidth/value.size,value.playerHeight/value.size,value.playerX+value.dameX/value.size,value.playerY+value.dameY/value.size,value.playerWidth/value.size,value.playerHeight/value.size):

@@ -193,14 +193,16 @@ def calc():
                         if value.roboMoveTime[i]==1:
                             value.roboAtackTime[i]=120
                         if value.roboAtackTime[i]==1:
-                            if not ((value.playerX-value.enemyX[i])**2+(value.playerY-value.enemyY[i])**2<900 and 3600>(value.playerX-value.enemyX[i])**2+(value.playerY-value.enemyY[i])**2>1225):
+                            if not ((value.playerX-value.enemyX[i])**2+(value.playerY-value.enemyY[i])**2<400 and 3600>(value.playerX-value.enemyX[i])**2+(value.playerY-value.enemyY[i])**2>900):
                                 value.roboMoveTime[i]=60
                         if value.roboAtackTime[i]==0 and value.roboMoveTime[i]==0:
                             value.roboAtackTime[i]=2
 
-                        if value.enemyVX[i]==0:
-                            if random.randint(0,40)==0:
-                                fire.add(i)
+                        
+                        if 3600>(value.playerX-value.enemyX[i])**2+(value.playerY-value.enemyY[i])**2:
+                            if value.enemyVX[i]==0:
+                                if random.randint(0,40)==0:
+                                    fire.add(i)
                         
 
                         if value.roboMoveTime[i]==0 and value.roboAtackTime[i]==0:
@@ -240,5 +242,26 @@ def nockBack(i):
 def alive():
     for i in range(value.nE):
         if value.enemyHP[i]<=0:
+            if value.enemyAlive[i]==1:
+                if random.randint(0,3):
+                    value.playerHP=min(10,value.playerHP+1)
             value.enemyHP[i]=0
             value.enemyAlive[i]=0
+
+def isHit():
+    for i in range(value.nE):
+        if value.enemyAlive[i]:
+            if func.spHitSp(value.enemyX[i],value.enemyY[i],value.playerWidth/value.size,value.playerHeight/value.size,value.playerX,value.playerY,value.playerWidth/value.size,value.playerHeight/value.size):
+                match  value.enemyType[i]:
+                    case 1|2|4|5|7|8:
+                        if not value.playerHitEnemy[i]:
+                            value.playerHP-=1
+                            value.playerDamageTime=10
+                    case 6:
+                        if value.ghostTime[i]==20:
+                            value.playerHP-=1
+                            value.playerDamageTime=10
+                value.playerHitEnemy[i]=True
+            else:
+                value.playerHitEnemy[i]=False
+                

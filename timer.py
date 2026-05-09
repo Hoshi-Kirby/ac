@@ -41,6 +41,8 @@ def dec1():
     if value.fireTime<=0:
         value.fireTime=30
     value.fireTime-=1
+    if value.playerDamageTime>0:
+        value.playerDamageTime-=1
 
     for i in range(value.nE):
         if value.enemyBackTime[i]!=0:

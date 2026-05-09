@@ -10,12 +10,14 @@ pygame.init()
 pygame.mixer.init()
 
 player=[]
+player.append(func.imageLoad(2,"image/player_0.png",255)[0])
 player.append(func.imageLoad(2,"image/player_1.png",255)[0])
 player.append(func.imageLoad(2,"image/player_2.png",255)[0])
 player.append(func.imageLoad(2,"image/player_3.png",255)[0])
 player.append(pygame.transform.flip(player[0], True, False))
 player.append(pygame.transform.flip(player[1], True, False))
 player.append(pygame.transform.flip(player[2], True, False))
+player.append(pygame.transform.flip(player[3], True, False))
 value.playerWidth,value.playerHeight=func.imageLoad(2,"image/player_1.png",255)[1:]
 value.playerWidth-=value.size*2
 value.playerHeight-=value.size
@@ -33,8 +35,10 @@ slash_u_f=pygame.transform.rotate(slash_f, -90)
 slash_d=pygame.transform.rotate(slash, -90)
 slash_d_f=pygame.transform.rotate(slash_f, 90)
 
-def draw(i,a,t,x,y):
-    if a==0 and t==0:
+def draw(i,a,t,d,x,y):
+    if d>0:
+        value.screen.blit(player[value.playerIsLeft*4],(x,y))
+    elif a==0 and t==0:
         value.screen.blit(player[i],(x,y))
     elif a>0:
         direct=0
@@ -109,3 +113,31 @@ def draw(i,a,t,x,y):
             value.screen.blit(playerA,(x,y))
         else:
             value.screen.blit(playerA_f,(x,y))
+
+max_width=100
+height=20
+x=10
+y=10
+frame_pad = 2 
+
+bg = pygame.Surface((max_width, height), pygame.SRCALPHA)
+pygame.draw.rect(bg, (0, 0, 0, 120), (0, 0, max_width, height))
+
+frame_surf = pygame.Surface((max_width + frame_pad*2, height + frame_pad*2), pygame.SRCALPHA)
+frame_color = (255, 255, 255, 180)
+pygame.draw.rect(frame_surf, frame_color, (0, 0, max_width + frame_pad*2, height + frame_pad*2), 2)
+
+def drawHP():
+    value.screen.blit(bg, (x, y))
+
+    value.screen.blit(frame_surf, (x - frame_pad, y - frame_pad))
+
+    current_width = int(max_width * (value.playerHP / 10))
+    if value.playerDamageTime==0:
+        color1=(138,199,90)
+        color2=(102,144,62)
+    else:
+        color1=(255,0,0)
+        color2=(150,0,0)
+    pygame.draw.rect(value.screen, color1, (x, y, current_width, height/2))
+    pygame.draw.rect(value.screen, color2, (x, y + height/2, current_width, height/2))

@@ -28,7 +28,7 @@ playerVY=0
 playerWidth=0
 playerHeight=0
 playerPauseTime=0
-playerPause=0
+playerPause=1
 playerIsLeft=0
 
 jumpTime=0
@@ -61,6 +61,9 @@ player2ThrowTime=[0]*120
 player2A=[False]*120
 player2C=[False]*120
 pressShiftTime=0
+playerHP=10
+playerMaxHP=0
+playerDamageTime=0
 
 isW=False
 isS=False
@@ -131,6 +134,8 @@ class FireBall:
 
 fireTime=0
 
+playerHitEnemy=[False]*nE
+
 def reset():
     value.step=1
     value.grid = [[0] * value.height for _ in range(value.maxWidth)]
@@ -141,8 +146,10 @@ def reset():
     value.playerY=value.lastY-7
     value.playerVY=0
     value.playerPauseTime=0
-    value.playerPause=0
+    value.playerPause=1
     value.playerIsLeft=0
+    value.playerHP=min(value.playerHP+2,value.playerMaxHP)
+    value.playerMaxHP=max(0,value.playerHP)
 
     value.dashTimeA=0
     value.dashTimeD=0

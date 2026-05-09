@@ -87,6 +87,8 @@ def calc():
             ar.alive = False
         if func.spHitSp(ar.x,ar.y,value.playerWidth/value.size,value.playerHeight/value.size,value.playerX,value.playerY,value.playerWidth/value.size,value.playerHeight/value.size):
             ar.alive = False
+            value.playerHP-=1
+            value.playerDamageTime=10
     value.enemyArrows = [a for a in value.enemyArrows if a.alive]
 
 

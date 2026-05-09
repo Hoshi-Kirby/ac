@@ -40,10 +40,11 @@ while True:
         arrow.add0()
         p2t=59-int(value.pressShiftTime/2)
         p2.draw(value.player2Pause[p2t]+value.player2IsLeft[p2t],value.player2AtackTime[p2t],value.player2ThrowTime[p2t],(value.player2X[p2t]-value.scroll)*value.size,value.player2Y[p2t]*value.size)
-        player.draw(value.playerPause+value.playerIsLeft,value.atackTime,value.throwTime,(value.playerX-value.scroll)*value.size,value.playerY*value.size)              
+        player.draw(value.playerPause+value.playerIsLeft*4,value.atackTime,value.throwTime,value.playerDamageTime,(value.playerX-value.scroll)*value.size,value.playerY*value.size)              
         enemy.draw()
         fire.draw()
 
+        player.drawHP()
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -54,6 +55,7 @@ while True:
                 mouse.event1(event.button)
 
         key.pressed1()
+        value.playerMaxHP=max(value.playerMaxHP,value.playerHP)
 
         sword.calc()
         sword.draw()
@@ -63,6 +65,7 @@ while True:
         enemy.calc()
         enemy.alive()
         fire.calc()
+        enemy.isHit()
 
         p2.memo()
 
