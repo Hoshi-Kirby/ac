@@ -228,9 +228,10 @@ def isHit(x,y,w,h):
     return found
 
 def isFloor(d,x,y,w):
-    for i in range(int(value.playerWidth/value.size)+2):
-        if value.grid[x-1+i][y]==1 and d==-1:
-            return True
-        if value.grid[x+2+int(w)+1-i][y]==1 and d==1:
-            return True
+    if x-1+int(value.playerWidth/value.size)+2<value.maxWidth and d==-1:
+        for i in range(int(value.playerWidth/value.size)+2):
+            if value.grid[x-1+i][y]==1 and d==-1:
+                return True
+            if value.grid[x+2+int(w)+1-i][y]==1 and d==1:
+                return True
     return False

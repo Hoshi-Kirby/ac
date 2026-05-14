@@ -11,6 +11,29 @@ from pygame.locals import *
 pygame.init()
 pygame.mixer.init()
 
+enemy_table = {
+    1: [1],          # 草原1周目
+    2: [1,2],        # 草原2周目
+    3: [1,2,3],      # 草原3周目
+    4: [2,4],        # 森1周目
+    5: [2,3,4],      # 森2周目
+    6: [1,2,3,4],    # 森3周目
+    7: [4,6],        # 遺跡1周目
+    8: [3,4,6],      # 遺跡2周目
+    9: [2,3,4,6],    # 遺跡3周目
+    10: [2,3],       # 砂漠1周目
+    11: [2,3,5],     # 砂漠2周目
+    12: [2,3,4,5],   # 砂漠3周目
+    13: [1,4],       # 都市1周目
+    14: [1,4,7],     # 都市2周目
+    15: [1,4,6,7],   # 都市3周目
+    16: [1,7],       # 洞窟1周目
+    17: [1,7,8],     # 洞窟2周目
+    18: [1,7,5,8],   # 洞窟3周目
+}
+ALL_ENEMIES = [1,2,3,4,5,6,7,8]
+
+
 m=8
 n=4
 k=2
@@ -35,6 +58,7 @@ def search(x):
             if value.grid[x+w][h]==1:
                 return h-value.playerHeight/value.size-2
 
+enemyNumber=[0,8,4,5,2,1,6,3,7]
 def set(l,r):
     value.enemyActive=[False]*value.nE
     value.enemyAlive=[1]*value.nE
@@ -47,11 +71,16 @@ def set(l,r):
     value.roboAtackTime=[0]*value.nE
     value.enemyVX=[0]*value.nE
     value.enemyVY=[0]*value.nE
+    if value.level <= 18:
+        candidates = enemy_table[value.level]
+    else:
+        candidates = ALL_ENEMIES
     for i in range(value.nE):
         x=random.randint(l,r)
         value.enemyX[i]=x
         value.enemyY[i]=search(x)
-        value.enemyType[i]=random.randint(1,8)
+
+        value.enemyType[i] = enemyNumber[random.choice(candidates)]
 
 def draw():
     for i in range(value.nE):

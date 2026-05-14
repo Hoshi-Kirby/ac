@@ -83,7 +83,7 @@ class Arrow:
         self.x +=self.vx
         self.y +=self.vy
 
-nE=10
+nE=20
 enemyType=[0]*nE
 enemyX=[0]*nE
 enemyY=[0]*nE
@@ -135,6 +135,8 @@ class FireBall:
 fireTime=0
 
 playerHitEnemy=[False]*nE
+
+value.level=0
 
 def reset():
     value.step=1

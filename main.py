@@ -27,11 +27,34 @@ bgData.append(func.imageLoad(2, "image/sabaku.png", 255))
 bgData.append(func.imageLoad(2, "image/toshi.png", 255))
 bgData.append(func.imageLoad(2, "image/dokutu.png", 255))
 
+value.level=0
 while True:
     if value.step==0:
         value.reset()
     if value.step==1:
-        sb=random.randint(0,5)
+        value.level+=1
+        match(value.level):
+            case 1|2|3:
+                sb=0
+                value.nE=20
+            case 4|5|6:
+                sb=1
+                value.nE=20
+            case 7|8|9:
+                sb=2
+                value.nE=15
+            case 10|11|12:
+                sb=3
+                value.nE=10
+            case 13|14|15:
+                sb=4
+                value.nE=9
+            case 16|17|18:
+                sb=5
+                value.nE=8
+            case _:
+                sb=random.randint(0,5)
+                value.nE=10
         stage.set(sb)
         enemy.set(10,value.maxWidth-10)
     while value.step==1:
