@@ -89,6 +89,7 @@ while True:
         enemy.alive()
         fire.calc()
         enemy.isHit()
+        enemy.heart()
 
         p2.memo()
 

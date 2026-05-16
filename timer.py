@@ -44,6 +44,10 @@ def dec1():
     if value.playerDamageTime>0:
         value.playerDamageTime-=1
 
+    if value.heartAlive:
+        if (not stage.isHit(value.heartX,value.heartY,value.playerWidth,value.playerHeight)) and value.heartY<value.height-value.playerHeight/value.size*2:
+                value.heartY+=1
+
     for i in range(value.nE):
         if value.enemyBackTime[i]!=0:
             value.enemyBackTime[i]-=func.sign(value.enemyBackTime[i])

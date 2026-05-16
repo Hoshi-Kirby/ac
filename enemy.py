@@ -57,6 +57,7 @@ def search(x):
         for w in range(int(value.playerWidth/value.size)+2):
             if value.grid[x+w][h]==1:
                 return h-value.playerHeight/value.size-2
+imageHeart=func.imageLoad(2,"image/heart.png",255)[0]
 
 enemyNumber=[0,8,4,5,2,1,6,3,7]
 def set(l,r):
@@ -85,6 +86,8 @@ def set(l,r):
 def draw():
     for i in range(value.nE):
         drawImage(i,value.enemyWalkPause[i]*value.enemyAlive[i])
+    if value.heartAlive:
+        func.ImageDraw(imageHeart,(value.heartX-value.scroll)*value.size,value.heartY*value.size)
 
 def drawImage(a,b):
     c=int(-(func.sign(value.playerX-value.enemyX[a])-1)/2)
@@ -273,7 +276,10 @@ def alive():
         if value.enemyHP[i]<=0:
             if value.enemyAlive[i]==1:
                 if random.randint(0,3):
-                    value.playerHP=min(10,value.playerHP+1)
+                    if not value.heartAlive:
+                        value.heartAlive=True
+                        value.heartX=value.enemyX[i]
+                        value.heartY=value.enemyY[i]
             value.enemyHP[i]=0
             value.enemyAlive[i]=0
 
@@ -293,4 +299,10 @@ def isHit():
                 value.playerHitEnemy[i]=True
             else:
                 value.playerHitEnemy[i]=False
+
+def heart():
+    if value.heartAlive and func.spHitSp(value.heartX,value.heartY,value.playerWidth/value.size,value.playerHeight/value.size,value.playerX,value.playerY,value.playerWidth/value.size,value.playerHeight/value.size):
+        value.heartAlive=False
+        if value.playerHP<10:
+            value.playerHP+=1
                 

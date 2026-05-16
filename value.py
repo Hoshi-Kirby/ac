@@ -136,7 +136,11 @@ fireTime=0
 
 playerHitEnemy=[False]*nE
 
-value.level=0
+heartX=0
+heartY=0
+heartAlive=False
+
+level=0
 
 def reset():
     value.step=1
@@ -162,3 +166,5 @@ def reset():
     value.atackTime=0
     value.slash=False
     value.slashTime=0
+
+    value.heartAlive=False
