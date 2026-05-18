@@ -8,12 +8,14 @@ pygame.init()
 pygame.mixer.init()
 
 player=[]
+player.append(func.imageLoad(2,"image/player_0.png",255)[0])
 player.append(func.imageLoad(2,"image/player_1.png",255)[0])
 player.append(func.imageLoad(2,"image/player_2.png",255)[0])
 player.append(func.imageLoad(2,"image/player_3.png",255)[0])
 player.append(pygame.transform.flip(player[0], True, False))
 player.append(pygame.transform.flip(player[1], True, False))
 player.append(pygame.transform.flip(player[2], True, False))
+player.append(pygame.transform.flip(player[3], True, False))
 value.playerWidth,value.playerHeight=func.imageLoad(2,"image/player_1.png",255)[1:]
 value.playerWidth-=value.size*2
 value.playerHeight-=value.size
@@ -27,7 +29,7 @@ slash_f=pygame.transform.flip(slash, True, False)
 slash2=pygame.transform.flip(slash, False, True)
 slash2_f=pygame.transform.flip(slash_f, False, True)
 
-for i in range(6):
+for i in range(8):
     dark_surface = pygame.Surface(player[i].get_size(), pygame.SRCALPHA)
     dark_surface.fill((100, 100, 100, 255))
     player[i].blit(dark_surface, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)

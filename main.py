@@ -26,6 +26,7 @@ bgData.append(func.imageLoad(2, "image/kaitei.png", 255))
 bgData.append(func.imageLoad(2, "image/sabaku.png", 255))
 bgData.append(func.imageLoad(2, "image/toshi.png", 255))
 bgData.append(func.imageLoad(2, "image/dokutu.png", 255))
+bgData.append(func.imageLoad(2, "image/oshiro.png", 255))
 
 value.level=0
 while True:
@@ -52,6 +53,9 @@ while True:
             case 16|17|18:
                 sb=5
                 value.nE=8
+            case 19:
+                sb=6
+                value.nE=0
             case _:
                 sb=random.randint(0,5)
                 value.nE=10
@@ -62,7 +66,7 @@ while True:
         stage.draw()
         arrow.add0()
         p2t=59-int(value.pressShiftTime/2)
-        p2.draw(value.player2Pause[p2t]+value.player2IsLeft[p2t],value.player2AtackTime[p2t],value.player2ThrowTime[p2t],(value.player2X[p2t]-value.scroll)*value.size,value.player2Y[p2t]*value.size)
+        p2.draw(value.player2Pause[p2t]+value.player2IsLeft[p2t]*4,value.player2AtackTime[p2t],value.player2ThrowTime[p2t],(value.player2X[p2t]-value.scroll)*value.size,value.player2Y[p2t]*value.size)
         player.draw(value.playerPause+value.playerIsLeft*4,value.atackTime,value.throwTime,value.playerDamageTime,(value.playerX-value.scroll)*value.size,value.playerY*value.size)              
         enemy.draw()
         fire.draw()

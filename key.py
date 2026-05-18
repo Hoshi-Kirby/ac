@@ -61,7 +61,7 @@ def event1(key):
             else:
                 value.swordVX=2
                 value.swordVY=0
-            value.swordIsLeft=value.playerIsLeft==1
+            value.swordIsLeft=not value.playerIsLeft==0
     if value.dashCoolTime==0:
         if value.dashTimeA>0:
             if key==K_a or key==K_LEFT:

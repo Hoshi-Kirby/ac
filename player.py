@@ -46,7 +46,7 @@ def draw(i,a,t,d,x,y):
             direct=90
         if value.isS:
             direct=-90
-        if i<3:
+        if i<4:
             value.screen.blit(playerA,(x,y))
             rotated_image = pygame.transform.rotate(sword, 180*a/6-135+direct)
             if value.isW:
@@ -109,7 +109,7 @@ def draw(i,a,t,d,x,y):
                         value.enemyIsSlash[j]=True
                         enemy.nockBack(j)
     elif t>0:
-        if i<3:
+        if i<4:
             value.screen.blit(playerA,(x,y))
         else:
             value.screen.blit(playerA_f,(x,y))

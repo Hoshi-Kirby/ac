@@ -41,4 +41,4 @@ def event1(button):
             else:
                 value.swordVX=2
                 value.swordVY=0
-            value.swordIsLeft=value.playerIsLeft==3
+            value.swordIsLeft=value.playerIsLeft==1

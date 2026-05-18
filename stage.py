@@ -177,6 +177,28 @@ def set(t):
                     direction *= random.randint(-1, 6)
                 if direction!=0:
                     direction=int(direction/abs(direction))
+    if t==6:
+        while x<value.maxWidth-10:
+            for j in range(2):
+                value.grid[x][y]=1
+                if direction==0:
+                    x+=1
+                else:
+                    y+=direction
+            
+            if y<value.height-20:
+                if direction==0:
+                    direction=1
+                else:
+                    direction=0
+            elif y>value.height-20:
+                if direction==0:
+                    direction=-1
+                else:
+                    direction = 0
+            else:
+                direction=0
+
     
     
     
@@ -202,6 +224,9 @@ def set(t):
     elif t==5:
         pygame.draw.rect(ground, (50, 70, 120, 120), (0, 0, value.size, value.size))
         face=(200,220,250)
+    elif t==6:
+        pygame.draw.rect(ground, (144, 89, 63, 120), (0, 0, value.size, value.size))
+        face=(75,45,28)
 
 def draw():
     for w in range(value.width):
@@ -228,7 +253,7 @@ def isHit(x,y,w,h):
     return found
 
 def isFloor(d,x,y,w):
-    if x-1+int(value.playerWidth/value.size)+2<value.maxWidth and d==-1:
+    if (x-1+int(value.playerWidth/value.size)+4<value.maxWidth and d==1)or(x+1-int(value.playerWidth/value.size)-2>0 and d==-1):
         for i in range(int(value.playerWidth/value.size)+2):
             if value.grid[x-1+i][y]==1 and d==-1:
                 return True
