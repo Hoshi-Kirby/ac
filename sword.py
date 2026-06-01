@@ -34,7 +34,7 @@ def calc():
                 value.fallTime=5
 
         for i in range(value.nE):
-            if func.spHitSp(value.swordX,value.swordY,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[i],value.enemyY[i],value.playerWidth/value.size,value.playerHeight/value.size):    
+            if func.spHitSp(value.swordX,value.swordY,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[i],value.enemyY[i],value.enemyWidth[value.enemyType[i]]/value.size,value.enemyHeight[value.enemyType[i]]/value.size):    
                 if value.ghostTime[i]<20 and value.moguMoguTime[i]==0:
                     value.enemyHP[i]-=1
                     value.throwTime=0

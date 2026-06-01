@@ -19,8 +19,8 @@ player.append(pygame.transform.flip(player[1], True, False))
 player.append(pygame.transform.flip(player[2], True, False))
 player.append(pygame.transform.flip(player[3], True, False))
 value.playerWidth,value.playerHeight=func.imageLoad(2,"image/player_1.png",255)[1:]
-value.playerWidth-=value.size*2
-value.playerHeight-=value.size
+# value.playerWidth-=value.size*2
+# value.playerHeight-=value.size
 
 playerA=func.imageLoad(2,"image/player_A.png",255)[0]
 playerA_f=pygame.transform.flip(playerA, True, False)

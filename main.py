@@ -28,6 +28,9 @@ bgData.append(func.imageLoad(2, "image/toshi.png", 255))
 bgData.append(func.imageLoad(2, "image/dokutu.png", 255))
 bgData.append(func.imageLoad(2, "image/oshiro.png", 255))
 
+value.enemyWidth=[value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth*4]
+value.enemyHeight=[value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight*4]
+
 value.level=0
 while True:
     if value.step==0:
@@ -55,7 +58,7 @@ while True:
                 value.nE=8
             case 19:
                 sb=6
-                value.nE=0
+                value.nE=1
             case _:
                 sb=random.randint(0,5)
                 value.nE=10

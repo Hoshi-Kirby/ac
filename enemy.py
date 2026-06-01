@@ -30,6 +30,7 @@ enemy_table = {
     16: [1,7],       # 洞窟1周目
     17: [1,7,8],     # 洞窟2周目
     18: [1,7,5,8],   # 洞窟3周目
+    19: [9,9],         # ボス
 }
 ALL_ENEMIES = [1,2,3,4,5,6,7,8]
 
@@ -37,11 +38,14 @@ ALL_ENEMIES = [1,2,3,4,5,6,7,8]
 m=8
 n=4
 k=2
-image = [[[0] * k for _ in range(n)] for _ in range(m+1)]
+image = [[[0] * k for _ in range(n)] for _ in range(m+2)]
 for j in range(m):
     for i in range(n):
         image[j+1][i][0]=func.imageLoad(2,f"enemyImage/enemy{j+1}-{i}.png",255)[0]
         image[j+1][i][1]=pygame.transform.flip(image[j+1][i][0], True, False)
+for i in range(n):
+    image[9][i][0]=func.imageLoad(4,f"enemyImage/boss{i}.png",255)[0]
+    image[9][i][1]=pygame.transform.flip(image[9][i][0], True, False)
 
 imageGhost = [[0] * k for _ in range(n)]
 for i in range(n):
@@ -52,14 +56,14 @@ for i in range(n):
     imageMogu[i][0]=func.imageLoad(2,f"enemyImage/enemy{1}-{i}.png",100)[0]
     imageMogu[i][1]=pygame.transform.flip(imageMogu[i][0], True, False)
 
-def search(x):
+def search(x,i):
     for h in range(value.height):
-        for w in range(int(value.playerWidth/value.size)+2):
+        for w in range(int(value.enemyWidth[value.enemyType[i]]/value.size)+2):
             if value.grid[x+w][h]==1:
-                return h-value.playerHeight/value.size-2
+                return h-value.enemyHeight[value.enemyType[i]]/value.size-2
 imageHeart=func.imageLoad(2,"image/heart.png",255)[0]
 
-enemyNumber=[0,8,4,5,2,1,6,3,7]
+enemyNumber=[0,8,4,5,2,1,6,3,7,9]
 def set(l,r):
     value.enemyActive=[False]*value.nE
     value.enemyAlive=[1]*value.nE
@@ -72,16 +76,18 @@ def set(l,r):
     value.roboAtackTime=[0]*value.nE
     value.enemyVX=[0]*value.nE
     value.enemyVY=[0]*value.nE
-    if value.level <= 18:
+    if value.level <= 19:
         candidates = enemy_table[value.level]
     else:
         candidates = ALL_ENEMIES
     for i in range(value.nE):
-        x=random.randint(l,r)
-        value.enemyX[i]=x
-        value.enemyY[i]=search(x)
 
         value.enemyType[i] = enemyNumber[random.choice(candidates)]
+        x=random.randint(l,r)
+        if value.level == 19:
+            x=500
+        value.enemyX[i]=x
+        value.enemyY[i]=search(x,i)
 
 def draw():
     for i in range(value.nE):
@@ -286,7 +292,7 @@ def alive():
 def isHit():
     for i in range(value.nE):
         if value.enemyAlive[i]:
-            if func.spHitSp(value.enemyX[i],value.enemyY[i],value.playerWidth/value.size,value.playerHeight/value.size,value.playerX,value.playerY,value.playerWidth/value.size,value.playerHeight/value.size):
+            if func.spHitSp(value.enemyX[i],value.enemyY[i],value.enemyWidth[value.enemyType[i]]/value.size,value.enemyHeight[value.enemyType[i]]/value.size,value.playerX,value.playerY,value.playerWidth/value.size,value.playerHeight/value.size):
                 match  value.enemyType[i]:
                     case 1|2|4|5|7|8:
                         if not value.playerHitEnemy[i]:

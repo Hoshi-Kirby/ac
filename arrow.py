@@ -71,7 +71,7 @@ def calc():
         if stage.isHit(ar.x,ar.y,value.playerWidth,value.playerHeight):
             ar.alive = False
         for i in range(value.nE):
-            if func.spHitSp(ar.x,ar.y,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[i],value.enemyY[i],value.playerWidth/value.size,value.playerHeight/value.size):
+            if func.spHitSp(ar.x,ar.y,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[i],value.enemyY[i],value.enemyWidth[value.enemyType[i]]/value.size,value.enemyHeight[value.enemyType[i]]/value.size):
                 if value.enemyType[i]==2 or value.enemyType[i]==3:
                     ar.vx*=-1
                     ar.vy*=-1

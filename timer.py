@@ -51,9 +51,9 @@ def dec1():
     for i in range(value.nE):
         if value.enemyBackTime[i]!=0:
             value.enemyBackTime[i]-=func.sign(value.enemyBackTime[i])
-            if stage.isHit(value.enemyX[i]+func.sign(value.enemyBackTime[i]),value.enemyY[i],value.playerWidth,value.playerHeight-1):
+            if stage.isHit(value.enemyX[i]+func.sign(value.enemyBackTime[i]),value.enemyY[i],value.enemyWidth[value.enemyType[i]],value.enemyHeight[value.enemyType[i]]-1):
                 break
-            if value.enemyX[i]>value.maxWidth-math.ceil(value.playerWidth/value.size)-2 and func.sign(value.enemyBackTime[i])==1:
+            if value.enemyX[i]>value.maxWidth-math.ceil(value.enemyWidth[value.enemyType[i]]/value.size)-2 and func.sign(value.enemyBackTime[i])==1:
                 break
             if value.enemyX[i]<2 and func.sign(value.enemyBackTime[i])==-1:
                 break
@@ -90,22 +90,22 @@ def dec1():
                     break
                 value.enemyX[i]+=func.sign(value.enemyVX[i])
         else:
-            if not stage.isHit(value.enemyX[i],value.enemyY[i],value.playerWidth,value.playerHeight) or value.enemyVY[i]<=0:
+            if not stage.isHit(value.enemyX[i],value.enemyY[i],value.enemyWidth[value.enemyType[i]],value.enemyHeight[value.enemyType[i]]) or value.enemyVY[i]<=0:
                 value.enemyVY[i]+=0.1
             else:
                 value.enemyVY[i]=0
-            if (not stage.isHit(value.enemyX[i],value.enemyY[i],value.playerWidth,value.playerHeight) or value.enemyVY[i]<0) and value.enemyY[i]<value.height-value.playerHeight/value.size*2:
+            if (not stage.isHit(value.enemyX[i],value.enemyY[i],value.enemyWidth[value.enemyType[i]],value.enemyHeight[value.enemyType[i]]) or value.enemyVY[i]<0) and value.enemyY[i]<value.height-value.enemyHeight[value.enemyType[i]]/value.size*2:
                 for j in range(int(abs(value.enemyVY[i])*10)):
-                    if stage.isHit(value.enemyX[i],value.enemyY[i],value.playerWidth,value.playerHeight) and value.enemyVY[i]>0:
+                    if stage.isHit(value.enemyX[i],value.enemyY[i],value.enemyWidth[value.enemyType[i]],value.enemyHeight[value.enemyType[i]]) and value.enemyVY[i]>0:
                         break
                     value.enemyY[i]+=0.1*func.sign(value.enemyVY[i])
             for j in range(abs(value.enemyVX[i])):
-                if stage.isHit(value.enemyX[i]+func.sign(value.enemyVX[i]),value.enemyY[i],value.playerWidth,value.playerHeight-1):
+                if stage.isHit(value.enemyX[i]+func.sign(value.enemyVX[i]),value.enemyY[i],value.enemyWidth[value.enemyType[i]],value.enemyHeight[value.enemyType[i]]-1):
                     break
-                if value.enemyX[i]>value.maxWidth-math.ceil(value.playerWidth/value.size)-2 and func.sign(value.enemyVX[i])==1:
+                if value.enemyX[i]>value.maxWidth-math.ceil(value.enemyWidth[value.enemyType[i]]/value.size)-2 and func.sign(value.enemyVX[i])==1:
                     break
                 if value.enemyX[i]<2 and func.sign(value.enemyVX[i])==-1:
                     break
-                if 4<=value.enemyType[i]<=5 and (not stage.isFloor(func.sign(value.enemyVX[i]),value.enemyX[i],int(value.enemyY[i]+value.playerHeight/value.size+1),value.playerWidth/value.size)):
+                if 4<=value.enemyType[i]<=5 and (not stage.isFloor(func.sign(value.enemyVX[i]),value.enemyX[i],int(value.enemyY[i]+value.enemyHeight[value.enemyType[i]]/value.size+1),value.enemyWidth[value.enemyType[i]]/value.size)):
                     break
                 value.enemyX[i]+=func.sign(value.enemyVX[i])
