@@ -38,7 +38,7 @@ ALL_ENEMIES = [1,2,3,4,5,6,7,8]
 m=8
 n=4
 k=2
-image = [[[0] * k for _ in range(n)] for _ in range(m+2)]
+image = [[[0] * k for _ in range(n+4)] for _ in range(m+2)]
 for j in range(m):
     for i in range(n):
         image[j+1][i][0]=func.imageLoad(2,f"enemyImage/enemy{j+1}-{i}.png",255)[0]
@@ -46,6 +46,11 @@ for j in range(m):
 for i in range(n):
     image[9][i][0]=func.imageLoad(4,f"enemyImage/boss{i}.png",255)[0]
     image[9][i][1]=pygame.transform.flip(image[9][i][0], True, False)
+for i in range(1,4):
+    image[9][3+i][0]=func.imageLoad(4,f"enemyImage/bossA{i}.png",255)[0]
+    image[9][3+i][1]=pygame.transform.flip(image[9][3+i][0], True, False)
+image[9][7][0]=func.imageLoad(4,"enemyImage/bossC.png",255)[0]
+image[9][7][1]=pygame.transform.flip(image[9][7][0], True, False)
 
 imageGhost = [[0] * k for _ in range(n)]
 for i in range(n):
@@ -64,10 +69,10 @@ def search(x,i):
 imageHeart=func.imageLoad(2,"image/heart.png",255)[0]
 
 enemyNumber=[0,8,4,5,2,1,6,3,7,9]
+enemyHP_table = [0,5,6,6,7,7,8,8,10,50]
 def set(l,r):
     value.enemyActive=[False]*value.nE
     value.enemyAlive=[1]*value.nE
-    value.enemyHP=[5]*value.nE
     value.ghostTime=[0]*value.nE
     value.enemyBackTime=[0]*value.nE
     value.moguMoguTime=[0]*value.nE
@@ -88,6 +93,13 @@ def set(l,r):
             x=500
         value.enemyX[i]=x
         value.enemyY[i]=search(x,i)
+        baseHP = enemyHP_table[value.enemyType[i]]
+        if value.level > 19:
+            scale = 1 + (value.level - 19) * 0.1
+            baseHP = int(baseHP * scale)
+
+        value.enemyHP[i] = baseHP
+
 
 def draw():
     for i in range(value.nE):
@@ -106,6 +118,15 @@ def drawImage(a,b):
     else:
         if value.ghostTime[a]>20:
             func.ImageDraw(imageGhost[b][c],(value.enemyX[a]-value.scroll)*value.size,value.enemyY[a]*value.size)
+        elif value.enemyType[a]==9 and value.bossAtackTime>0:
+            if value.bossAtackTime>20:
+                func.ImageDraw(image[9][4][c],(value.enemyX[a]-value.scroll)*value.size,value.enemyY[a]*value.size)
+            elif value.bossAtackTime>10:
+                func.ImageDraw(image[9][5][c],(value.enemyX[a]-value.scroll)*value.size,value.enemyY[a]*value.size)
+            else:
+                func.ImageDraw(image[9][6][c],(value.enemyX[a]-value.scroll)*value.size,value.enemyY[a]*value.size)
+        elif value.enemyType[a]==9 and value.bossCTime>0:
+            func.ImageDraw(image[9][7][c],(value.enemyX[a]-value.scroll)*value.size,value.enemyY[a]*value.size)
         else:
             func.ImageDraw(image[value.enemyType[a]][b][c],(value.enemyX[a]-value.scroll)*value.size,value.enemyY[a]*value.size)
 
@@ -257,6 +278,21 @@ def calc():
                             value.enemyVY[i]=0
                         if value.enemyY[i]<0:
                             value.enemyVY[i]=random.randint(0,1)
+                case 9:
+                    if value.enemyActive[i]:
+                        if value.bossAtackTime==0:
+                            if random.randint(0,300)==0:
+                                value.enemyVX[i]=random.randint(-4,4)
+                            else:
+                                value.enemyVX[i]=0
+                            
+                            if random.randint(0,40)==0:
+                                fire.add(i)
+                                value.bossCTime=10
+                            if random.randint(0,500)==0:
+                                value.bossAtackTime=40
+                        elif value.bossAtackTime>20:
+                            value.enemyVX[i]=func.sign(value.playerX-value.enemyX[i])
 
         else:
             value.enemyVX[i]=0
@@ -292,19 +328,25 @@ def alive():
 def isHit():
     for i in range(value.nE):
         if value.enemyAlive[i]:
-            if func.spHitSp(value.enemyX[i],value.enemyY[i],value.enemyWidth[value.enemyType[i]]/value.size,value.enemyHeight[value.enemyType[i]]/value.size,value.playerX,value.playerY,value.playerWidth/value.size,value.playerHeight/value.size):
-                match  value.enemyType[i]:
-                    case 1|2|4|5|7|8:
-                        if not value.playerHitEnemy[i]:
-                            value.playerHP-=1
-                            value.playerDamageTime=10
-                    case 6:
-                        if value.ghostTime[i]==20:
-                            value.playerHP-=1
-                            value.playerDamageTime=10
-                value.playerHitEnemy[i]=True
-            else:
-                value.playerHitEnemy[i]=False
+            if value.dashLeftTime==0 and value.dashRightTime==0:
+                if func.spHitSp(value.enemyX[i],value.enemyY[i],value.enemyWidth[value.enemyType[i]]/value.size,value.enemyHeight[value.enemyType[i]]/value.size,value.playerX,value.playerY,value.playerWidth/value.size,value.playerHeight/value.size):
+                    match  value.enemyType[i]:
+                        case 1|2|4|5|7|8:
+                            if not value.playerHitEnemy[i]:
+                                value.playerHP-=1
+                                value.playerDamageTime=10
+                        case 6:
+                            if value.ghostTime[i]==20:
+                                value.playerHP-=1
+                                value.playerDamageTime=10
+                        case 9:
+                            if 0<value.bossAtackTime<20:
+                                if not value.playerHitEnemy[i]:
+                                    value.playerHP-=2
+                                    value.playerDamageTime=10
+                    value.playerHitEnemy[i]=True
+                else:
+                    value.playerHitEnemy[i]=False
 
 def heart():
     if value.heartAlive and func.spHitSp(value.heartX,value.heartY,value.playerWidth/value.size,value.playerHeight/value.size,value.playerX,value.playerY,value.playerWidth/value.size,value.playerHeight/value.size):

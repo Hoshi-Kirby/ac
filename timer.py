@@ -43,6 +43,10 @@ def dec1():
     value.fireTime-=1
     if value.playerDamageTime>0:
         value.playerDamageTime-=1
+    if value.bossAtackTime>0:
+        value.bossAtackTime-=1
+    if value.bossCTime>0:
+        value.bossCTime-=1
 
     if value.heartAlive:
         if (not stage.isHit(value.heartX,value.heartY,value.playerWidth,value.playerHeight)) and value.heartY<value.height-value.playerHeight/value.size*2:

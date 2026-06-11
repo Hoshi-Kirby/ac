@@ -72,7 +72,7 @@ def calc():
             ar.alive = False
         for i in range(value.nE):
             if func.spHitSp(ar.x,ar.y,value.playerWidth/value.size,value.playerHeight/value.size,value.enemyX[i],value.enemyY[i],value.enemyWidth[value.enemyType[i]]/value.size,value.enemyHeight[value.enemyType[i]]/value.size):
-                if value.enemyType[i]==2 or value.enemyType[i]==3:
+                if value.enemyType[i]==2 or value.enemyType[i]==3 or (value.enemyType[i]==9 and abs(ar.vy)<abs(ar.vx)):
                     ar.vx*=-1
                     ar.vy*=-1
                 elif value.ghostTime[i]<20 and value.moguMoguTime[i]==0:

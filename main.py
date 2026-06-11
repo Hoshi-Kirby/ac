@@ -28,8 +28,8 @@ bgData.append(func.imageLoad(2, "image/toshi.png", 255))
 bgData.append(func.imageLoad(2, "image/dokutu.png", 255))
 bgData.append(func.imageLoad(2, "image/oshiro.png", 255))
 
-value.enemyWidth=[value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth*4]
-value.enemyHeight=[value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight*4]
+value.enemyWidth=[value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth*4+10]
+value.enemyHeight=[value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight*4+10]
 
 value.level=0
 while True:

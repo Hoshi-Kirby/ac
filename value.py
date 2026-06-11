@@ -120,6 +120,8 @@ moguMoguTime=[0]*nE
 moguNotice=[0]*nE
 roboMoveTime=[1]*nE
 roboAtackTime=[0]*nE
+bossAtackTime=0
+bossCTime=0
 
 fireBalls=[]
 class FireBall:
