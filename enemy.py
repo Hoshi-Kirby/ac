@@ -242,9 +242,9 @@ def calc():
                         
                         if value.roboMoveTime[i]>1:
                             if (value.playerX-value.enemyX[i])**2+(value.playerY-value.enemyY[i])**2<400:
-                                value.enemyVX[i]=-func.sign(value.playerX-value.enemyX[i])
+                                value.enemyVX[i]=-func.sign(value.playerX-value.enemyX[i]+random.randint(-1,1))
                             elif 3600>(value.playerX-value.enemyX[i])**2+(value.playerY-value.enemyY[i])**2>900:
-                                value.enemyVX[i]=func.sign(value.playerX-value.enemyX[i])
+                                value.enemyVX[i]=func.sign(value.playerX-value.enemyX[i]+random.randint(-1,1))
                             else:
                                 value.enemyVX[i]=0
                             if stage.isHit(value.enemyX[i]+func.sign(value.enemyVX[i]),value.enemyY[i],value.playerWidth,value.playerHeight-1):
@@ -286,13 +286,15 @@ def calc():
                             else:
                                 value.enemyVX[i]=0
                             
-                            if random.randint(0,40)==0:
+                            if random.randint(0,30)==0:
                                 fire.add(i)
                                 value.bossCTime=10
-                            if random.randint(0,500)==0:
-                                value.bossAtackTime=40
+                            if random.randint(0,100)==0:
+                                arrow.enemyAdd(i)
+                            if random.randint(0,400)==0:
+                                value.bossAtackTime=60
                         elif value.bossAtackTime>20:
-                            value.enemyVX[i]=func.sign(value.playerX-value.enemyX[i])
+                            value.enemyVX[i]=func.sign(value.playerX-value.enemyX[i]-int(value.playerWidth/value.size*2))
 
         else:
             value.enemyVX[i]=0
@@ -317,7 +319,12 @@ def alive():
     for i in range(value.nE):
         if value.enemyHP[i]<=0:
             if value.enemyAlive[i]==1:
-                if random.randint(0,3):
+                if value.level==19:
+                    if not value.heartAlive:
+                        value.heartAlive=True
+                        value.heartX=value.enemyX[i]+int(value.playerWidth/value.size*2)
+                        value.heartY=value.enemyY[i]
+                elif random.randint(0,3):
                     if not value.heartAlive:
                         value.heartAlive=True
                         value.heartX=value.enemyX[i]
@@ -353,4 +360,6 @@ def heart():
         value.heartAlive=False
         if value.playerHP<10:
             value.playerHP+=1
+        if value.level==19:
+            value.playerHP=10
                 

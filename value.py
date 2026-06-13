@@ -14,7 +14,8 @@ size =5
 screen = pygame.display.set_mode((width*size, height*size))
 pygame.display.set_caption("action")
 
-step=1
+step=0
+isTitle=True
 
 lastY=50
 
@@ -147,7 +148,6 @@ heartAlive=False
 level=0
 
 def reset():
-    value.step=1
     value.grid = [[0] * value.height for _ in range(value.maxWidth)]
     
     value.scroll=0
@@ -158,7 +158,7 @@ def reset():
     value.playerPauseTime=0
     value.playerPause=1
     value.playerIsLeft=0
-    value.playerHP=min(value.playerHP+2,value.playerMaxHP)
+    value.playerHP=max(value.playerHP,min(value.playerHP+2,value.playerMaxHP))
     value.playerMaxHP=max(0,value.playerHP)
 
     value.dashTimeA=0

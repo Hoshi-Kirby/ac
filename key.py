@@ -9,6 +9,10 @@ from pygame.locals import *
 pygame.init()
 pygame.mixer.init()
 
+def event0(key):
+    if key==K_RETURN:
+        value.step=1
+
 def event1(key):
     if key==K_SPACE or key==K_z:
         if stage.isHit(value.playerX,value.playerY,value.playerWidth,value.playerHeight):
@@ -126,7 +130,8 @@ def pressed1():
                 if value.playerX<value.maxWidth-math.ceil(value.playerWidth/value.size)-2:
                     value.playerX+=1
                 else:
-                    value.step=0
+                    if (value.level!=19 or value.enemyAlive[0]==0):
+                        value.step=0
                 if value.playerX-value.scroll>=value.width/2 and value.scroll<value.maxWidth-value.width:
                     value.scroll+=1
                 if value.playerX-value.scroll>value.width/2 and value.scroll<value.maxWidth-value.width:

@@ -2,6 +2,7 @@ import sys, random
 import pygame, time
 import math
 import value
+import func
 from pygame.locals import *
 # ゲーム画面を初期化 --- (*1)
 pygame.init()
@@ -185,6 +186,11 @@ def set(t):
                     x+=1
                 else:
                     y+=direction
+                if random.randint(0,50)==0:
+                    l=0
+                    for k in range(random.randint(1,10)):
+                        l+=func.sign(random.randint(-1,1))
+                        value.grid[x+l][y+k]=1
             
             if y<value.height-20:
                 if direction==0:

@@ -86,35 +86,26 @@ def calc():
         if stage.isHit(ar.x,ar.y,value.playerWidth,value.playerHeight):
             ar.alive = False
         if func.spHitSp(ar.x,ar.y,value.playerWidth/value.size,value.playerHeight/value.size,value.playerX,value.playerY,value.playerWidth/value.size,value.playerHeight/value.size):
-            ar.alive = False
-            value.playerHP-=1
-            value.playerDamageTime=10
+            if value.dashLeftTime==0 and value.dashRightTime==0:
+                ar.alive = False
+                value.playerHP-=1
+                value.playerDamageTime=10
     value.enemyArrows = [a for a in value.enemyArrows if a.alive]
 
 
 def draw():
-    for ar in value.arrows:
+    for ar in value.arrows + value.enemyArrows:
         angle = math.atan2(ar.vy, ar.vx)
         angle_deg = math.degrees(angle)
 
-        img = arrow if ar.vx > 0 else arrow_f
-        rotated = pygame.transform.rotate(img, -angle_deg)
+        rotated = pygame.transform.rotate(arrow, -angle_deg)
 
-        value.screen.blit(
-            rotated,
-            ((ar.x - value.scroll) * value.size, ar.y * value.size)
-        )
-    for ar in value.enemyArrows:
-        angle = math.atan2(ar.vy, ar.vx)
-        angle_deg = math.degrees(angle)
+        rect = rotated.get_rect(center=(
+            (ar.x - value.scroll) * value.size,
+            ar.y * value.size
+        ))
 
-        img = arrow if ar.vx > 0 else arrow_f
-        rotated = pygame.transform.rotate(img, -angle_deg)
-
-        value.screen.blit(
-            rotated,
-            ((ar.x - value.scroll) * value.size, ar.y * value.size)
-        )
+        value.screen.blit(rotated, rect)
 
 
 def calc_trajectory(ex, ey, px, py, v):

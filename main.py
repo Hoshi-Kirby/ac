@@ -12,6 +12,7 @@ import arrow
 import fire
 import timer
 import p2
+import title
 from pygame.locals import *
 # ゲーム画面を初期化 --- (*1)
 pygame.init()
@@ -27,6 +28,7 @@ bgData.append(func.imageLoad(2, "image/sabaku.png", 255))
 bgData.append(func.imageLoad(2, "image/toshi.png", 255))
 bgData.append(func.imageLoad(2, "image/dokutu.png", 255))
 bgData.append(func.imageLoad(2, "image/oshiro.png", 255))
+titleImage=func.imageLoad(2, "image/titleImage.png", 255)
 
 value.enemyWidth=[value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth,value.playerWidth*4+10]
 value.enemyHeight=[value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight,value.playerHeight*4+10]
@@ -35,6 +37,24 @@ value.level=0
 while True:
     if value.step==0:
         value.reset()
+        if not value.isTitle:
+            value.step=1
+        else:
+            value.isTitle=False
+    while value.step==0:
+        title.draw_bg(titleImage[0],titleImage[1],titleImage[2])
+        title.draw_logo(value.width*value.size/2,150,0)
+        for event in pygame.event.get():
+                    if event.type == QUIT:
+                        pygame.quit()
+                        sys.exit()
+                    if event.type == KEYDOWN:
+                        key.event0(event.key)
+                    if event.type == MOUSEBUTTONDOWN:
+                        mouse.event0(event.button)
+        clock.tick(60)
+        
+        pygame.display.update()
     if value.step==1:
         value.level+=1
         match(value.level):

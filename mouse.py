@@ -9,6 +9,10 @@ from pygame.locals import *
 pygame.init()
 pygame.mixer.init()
 
+def event0(button):
+    if button==1:
+        value.step=1
+
 def event1(button):
     if button==1:
         if value.throwTime==0 and value.fallTime==0:
